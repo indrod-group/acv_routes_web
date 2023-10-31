@@ -29,7 +29,7 @@ const LoginForm: React.FC<LoginProps> = ({ setToken }) => {
   const onFinish = (values: Credentials) => {
     loginUser(values).then(token => {
       setToken(token);
-      navigate('/dashboard/route-trip');
+      navigate('/dashboard/journey-tracker');
     }).catch(error => {
       console.log(error);
     });

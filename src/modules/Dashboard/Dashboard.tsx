@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 
-import RouteTrip from './VehicleRoutes/JourneyTracker';
+import JourneyTracker from './VehicleRoutes/JourneyTracker';
 import Logo from './Logo';
 import menuItems from './MenuItems';
 
@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
   }
 
   const routes: Record<string, () => void> = {
-    '1': () => navigateAndGo('/dashboard/route-trip'),
+    '1': () => navigateAndGo('/dashboard/journey-tracker'),
     '2': () => navigateAndGo('/dashboard/vehicles'),
     '3': handleLogout,
   };
@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
   }
 
   const titles: Record<string, string> = {
-    '/dashboard/route-trip': 'Rutas de viaje',
+    '/dashboard/journey-tracker': 'Rutas de viaje',
     '/dashboard/vehicles': 'Vehículos',
   };
 
@@ -70,8 +70,8 @@ const Dashboard: React.FC = () => {
         <Content style={{ margin: '0 16px' }}>
           <div className="site-layout-background p-6 min-h-[360px]">
             <Routes>
-              <Route path="/route-trip" element={<RouteTrip />} />
-              <Route path="/vehicles" element={<RouteTrip />} />
+              <Route path="/journey-tracker" element={<JourneyTracker />} />
+              <Route path="/vehicles" element={<JourneyTracker />} />
             </Routes>
           </div>
         </Content>
