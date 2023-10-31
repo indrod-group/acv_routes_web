@@ -4,9 +4,10 @@ import type { MenuProps } from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
+    LogoutOutlined
 } from '@ant-design/icons';
 
-type MenuItem = Required<MenuProps>['items'][number];
+export type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
     label: React.ReactNode,
@@ -18,8 +19,9 @@ function getItem(
 }
 
 const menuItems: MenuItem[] = [
-    getItem('Opción 1', '1', <PieChartOutlined />,),
-    getItem('Opción 2', '2', <DesktopOutlined />,),
+    getItem('Rutas de viaje', '1', <PieChartOutlined />,),
+    getItem('Vehículos', '2', <DesktopOutlined />,),
+    getItem('Cerrar sesión', '3', <LogoutOutlined />,),
 ];
 
 export default menuItems;

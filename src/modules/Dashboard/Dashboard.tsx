@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+
+import RouteTrip from './VehicleRoutes/JourneyTracker';
 import Logo from './Logo';
 import menuItems from './MenuItems';
 
@@ -7,6 +10,38 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate("/login");
+  }
+
+  const navigateAndGo = (url: string) => {
+    navigate(url);
+    setCollapsed(true);
+  }
+
+  const routes: Record<string, () => void> = {
+    '1': () => navigateAndGo('/dashboard/route-trip'),
+    '2': () => navigateAndGo('/dashboard/vehicles'),
+    '3': handleLogout,
+  };
+
+  const handleRoute = (key: string) => {
+    const routeFunction = routes[key];
+    if (routeFunction) {
+      routeFunction();
+    }
+  }
+
+  const titles: Record<string, string> = {
+    '/dashboard/route-trip': 'Rutas de viaje',
+    '/dashboard/vehicles': 'Vehículos',
+  };
+
+  const title = titles[location.pathname] || 'Título por defecto';
 
   return (
     <Layout className='w-auto min-h-screen' hasSider>
@@ -17,18 +52,27 @@ const Dashboard: React.FC = () => {
         onCollapse={(value) => setCollapsed(value)}
         width={300}
       >
-        <Logo collapsed={collapsed}/>
-        <Menu items={menuItems} theme="dark" defaultSelectedKeys={['1']} mode="inline"/>
+        <Logo collapsed={collapsed} />
+        <Menu
+          items={menuItems}
+          theme="dark"
+          defaultSelectedKeys={['1']}
+          mode="inline"
+          onClick={({ key }) => { handleRoute(key) }}
+        />
       </Sider>
       <Layout className="site-layout">
         <Header className="flex top-0 w-full  items-center justify-center print:hidden">
           <h2 className="text-sm sm:text-base md:text-lg lg:text-xl text-white text-opacity-80 text-ellipsis">
-            Título del módulo
+            {title}
           </h2>
         </Header>
         <Content style={{ margin: '0 16px' }}>
           <div className="site-layout-background p-6 min-h-[360px]">
-            Contenido del Dashboard
+            <Routes>
+              <Route path="/route-trip" element={<RouteTrip />} />
+              <Route path="/vehicles" element={<RouteTrip />} />
+            </Routes>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
