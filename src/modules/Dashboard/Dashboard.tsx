@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 
 import JourneyTracker from './VehicleRoutes/JourneyTracker';
 import Logo from './Logo';
 import menuItems from './MenuItems';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -36,13 +35,6 @@ const Dashboard: React.FC = () => {
     }
   }
 
-  const titles: Record<string, string> = {
-    '/dashboard/journey-tracker': 'Rutas de viaje',
-    '/dashboard/vehicles': 'Vehículos',
-  };
-
-  const title = titles[location.pathname] || 'Título por defecto';
-
   return (
     <Layout className='w-auto min-h-screen' hasSider>
       <Sider
@@ -61,24 +53,11 @@ const Dashboard: React.FC = () => {
           onClick={({ key }) => { handleRoute(key) }}
         />
       </Sider>
-      <Layout className="site-layout">
-        <Header className="flex top-0 w-full  items-center justify-center print:hidden">
-          <h2 className="text-sm sm:text-base md:text-lg lg:text-xl text-white text-opacity-80 text-ellipsis">
-            {title}
-          </h2>
-        </Header>
-        <Content style={{ margin: '0 16px' }}>
-          <div className="site-layout-background p-6 min-h-[360px]">
-            <Routes>
-              <Route path="/journey-tracker" element={<JourneyTracker />} />
-              <Route path="/vehicles" element={<JourneyTracker />} />
-            </Routes>
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          WanWayTech © {new Date().getFullYear()}
-        </Footer>
-      </Layout>
+      <Routes>
+        <Route path="/journey-tracker" element={<JourneyTracker />} />
+        <Route path="/vehicles" element={<JourneyTracker />} />
+      </Routes>
+
     </Layout >
   );
 };
