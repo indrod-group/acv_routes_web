@@ -1,4 +1,9 @@
-import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  useMapEvents
+} from 'react-leaflet';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -35,14 +40,15 @@ const Map: React.FC = () => {
         center={[-0.7249496, -77.3360467]}
         zoom={13}
         style={{ height: "90vh", width: "100%" }}
+        scrollWheelZoom={true}
         attributionControl={true}
       >
         <SetViewWhenChange
           center={[-0.7249496, -77.3360467]}
           zoom={13}
-        />*
+        />
         <TileLayer
-          url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           maxZoom={19}
           attribution='Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | <a href="https://openmaptiles.org/" target="_blank">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap</a> contributors'
         />

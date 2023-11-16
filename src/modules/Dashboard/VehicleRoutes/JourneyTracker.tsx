@@ -2,10 +2,10 @@ import React from 'react';
 import { Layout } from 'antd';
 import Map from './Map';
 
-const { Header, Content, Footer } = Layout;
-
+const { Header, Content } = Layout;
 
 const JourneyTracker: React.FC = () => {
+
   return (
     <Layout className="site-layout">
       <Header className="flex top-0 w-full  items-center justify-center print:hidden">
@@ -16,9 +16,6 @@ const JourneyTracker: React.FC = () => {
       <Content>
         <Map/>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        WanWayTech © {new Date().getFullYear()}
-      </Footer>
     </Layout>
   );
 }
