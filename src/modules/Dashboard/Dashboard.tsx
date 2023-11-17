@@ -5,11 +5,14 @@ import { Layout, Menu } from 'antd';
 import JourneyTracker from './VehicleRoutes/JourneyTracker';
 import Logo from './Logo';
 import menuItems from './MenuItems';
+import Profile from './Profile/Profile';
+import { useProfile } from './Profile/useProfile';
 
 const { Sider } = Layout;
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const {userProfile} = useProfile();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -25,7 +28,8 @@ const Dashboard: React.FC = () => {
   const routes: Record<string, () => void> = {
     '1': () => navigateAndGo('/dashboard/journey-tracker'),
     '2': () => navigateAndGo('/dashboard/vehicles'),
-    '3': handleLogout,
+    '3': () => navigateAndGo('/dashboard/user-profile'),
+    '4': handleLogout,
   };
 
   const handleRoute = (key: string) => {
@@ -56,6 +60,7 @@ const Dashboard: React.FC = () => {
       <Routes>
         <Route path="/journey-tracker" element={<JourneyTracker />} />
         <Route path="/vehicles" element={<JourneyTracker />} />
+        <Route path="/user-profile" element={<Profile userProfile={userProfile}/>} />
       </Routes>
 
     </Layout >

@@ -4,7 +4,8 @@ import type { MenuProps } from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 
 export type MenuItem = Required<MenuProps>['items'][number];
@@ -21,7 +22,8 @@ function getItem(
 const menuItems: MenuItem[] = [
     getItem('Rutas de viaje', '1', <PieChartOutlined />,),
     getItem('Vehículos', '2', <DesktopOutlined />,),
-    getItem('Cerrar sesión', '3', <LogoutOutlined />,),
+    getItem('Perfil', '3', <UserOutlined />,),
+    getItem('Cerrar sesión', '4', <LogoutOutlined />,),
 ];
 
 export default menuItems;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 import { Form, Input, Button, Layout, Card, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
@@ -17,7 +19,7 @@ type LoginProps = {
 
 async function loginUser(credentials: Credentials): Promise<UserToken> {
   const response = await axios.post<UserToken>(
-    'https://twlxb59c-8000.use2.devtunnels.ms/api_generate_token/',
+    'http://localhost:8001/api_generate_token/',
     credentials
   );
   return response.data;
@@ -29,6 +31,7 @@ const LoginForm: React.FC<LoginProps> = ({ setToken }) => {
   const onFinish = (values: Credentials) => {
     loginUser(values).then(token => {
       setToken(token);
+      Cookies.set('username', values.username);
       navigate('/dashboard/journey-tracker');
     }).catch(error => {
       console.log(error);

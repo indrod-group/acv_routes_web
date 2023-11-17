@@ -4,7 +4,7 @@ export type UserToken = {
   token: string;
 }
 
-function saveToLocalStorage(key: string, value: string) {
+function saveToLocalStorage(key: string, value: UserToken) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
@@ -20,14 +20,13 @@ export default function useToken() {
   const tokenKey = 'token';
 
   const getToken = (): UserToken | undefined => {
-    const userToken = getFromLocalStorage<UserToken>(tokenKey);
-    return userToken;
+    return getFromLocalStorage<UserToken>(tokenKey);
   };
 
   const [token, setToken] = useState<UserToken | undefined>(getToken());
 
   const saveToken = (userToken: UserToken) => {
-    saveToLocalStorage(tokenKey, userToken?.token);
+    saveToLocalStorage(tokenKey, userToken);
     setToken(userToken);
   };
 
