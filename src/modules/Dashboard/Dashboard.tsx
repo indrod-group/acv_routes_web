@@ -12,7 +12,7 @@ const { Sider } = Layout;
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {userProfile} = useProfile();
+  const { userProfile } = useProfile();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
       <Routes>
         <Route path="/journey-tracker" element={<JourneyTracker />} />
         <Route path="/vehicles" element={<JourneyTracker />} />
-        <Route path="/user-profile" element={<Profile userProfile={userProfile}/>} />
+        <Route path="/user-profile" element={<Profile userProfile={userProfile} />} />
       </Routes>
 
     </Layout >

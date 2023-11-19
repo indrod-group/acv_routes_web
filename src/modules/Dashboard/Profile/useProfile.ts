@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import useToken from '../../Login/useToken';
 import { Convert } from '../../../api/Conversor';
 import { UserProfile } from '../../../api/models/UserProfile';
@@ -35,8 +35,10 @@ export function useProfile() {
     getUserProfile();
   }, [getUserProfile]);
 
+  const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
+
   return {
-    userProfile: userProfile,
+    userProfile: memoizedUserProfile,
     getUserProfile: getUserProfile,
   };
 }
