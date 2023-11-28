@@ -23,7 +23,8 @@ const menuItems: MenuItem[] = [
     getItem('Rutas de viaje', '1', <PieChartOutlined />,),
     getItem('Vehículos', '2', <DesktopOutlined />,),
     getItem('Perfil', '3', <UserOutlined />,),
-    getItem('Cerrar sesión', '4', <LogoutOutlined />,),
+    getItem('Bitácora', '4', <DesktopOutlined />,),
+    getItem('Cerrar sesión', '5', <LogoutOutlined />,),
 ];
 
 export default menuItems;
