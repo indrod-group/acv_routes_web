@@ -12,7 +12,7 @@ export function useDevices() {
 
   const fetchDevices = useCallback(() => {
     if (userProfile) {
-      axios.get(`http://localhost:8001/api/v1/user-devices/${userProfile.uuid}/`, {
+      axios.get(`https://twlxb59c-8001.use2.devtunnels.ms/api/v1/user-devices/${userProfile.uuid}/`, {
         headers: {
           'Authorization': `Token ${token!.token}`
         },
