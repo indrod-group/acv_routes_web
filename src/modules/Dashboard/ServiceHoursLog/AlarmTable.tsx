@@ -34,6 +34,12 @@ const columns = [
     render: (lng: string | null) => lng ?? 'N/A'
   },
   {
+    title: 'Dirección',
+    dataIndex: 'address',
+    key: 'address',
+    render: (address: string | null) => address ?? 'N/A'
+  },
+  {
     title: 'Velocidad',
     dataIndex: 'speed',
     key: 'speed',
