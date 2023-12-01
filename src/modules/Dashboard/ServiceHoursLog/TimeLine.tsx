@@ -1,4 +1,11 @@
-import { Card, Divider, Descriptions, Timeline, Typography, Alert } from 'antd';
+import {
+  Alert,
+  Card,
+  Descriptions,
+  Divider,
+  Timeline,
+  Typography,
+} from 'antd';
 import {
   AlertOutlined,
   ExclamationCircleOutlined,
@@ -73,6 +80,22 @@ const TimeLineAlarms: React.FC<TimeLineAlarmsProps> = ({ alarms }) => {
     />;
   }
 
+  const buildDescriptionItems = (alarm: Alarm) => {
+    const items = [];
+
+    if (alarm.speed) {
+      items.push(<Descriptions.Item label="Velocidad">{alarm.speed} km/h</Descriptions.Item>);
+    }
+    if (alarm.course) {
+      items.push(<Descriptions.Item label="Ángulo de giro">{alarm.course}°</Descriptions.Item>);
+    }
+    if (alarm.address) {
+      items.push(<Descriptions.Item label="Dirección">{alarm.address}</Descriptions.Item>);
+    }
+
+    return items;
+  };
+
   return (
     <Card title="Línea de tiempo">
       <Timeline mode="left">
@@ -98,22 +121,14 @@ const TimeLineAlarms: React.FC<TimeLineAlarmsProps> = ({ alarms }) => {
                 dot={getDotIcon(alarm.alarm_code as string)}
               >
                 <Descriptions
+                  column={2}
                   title={
                     <Text className="font-normal" strong={false} >
                       {getAlarmCode(alarm.alarm_code as string)}
                     </Text>
                   }
                 >
-                  {alarm.speed && (
-                    <Descriptions.Item label="Velocidad">
-                      {alarm.speed} km/h
-                    </Descriptions.Item>
-                  )}
-                  {alarm.course && (
-                    <Descriptions.Item label="Ángulo de giro">
-                      {alarm.course}°
-                    </Descriptions.Item>
-                  )}
+                  {buildDescriptionItems(alarm)}
                 </Descriptions>
               </Timeline.Item>
             </>
