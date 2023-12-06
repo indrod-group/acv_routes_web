@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import useToken from '../../Login/useToken';
 import { Convert } from '../../../api/Conversor';
 import { UserProfile } from '../../../api/models/UserProfile';
@@ -10,7 +10,7 @@ export function useProfile() {
   const { token } = useToken();
   const [userProfile, setUserProfile] = useState<UserProfile>();
 
-  const getUserProfile = useCallback(() => {
+  useEffect(() => {
     const username: string | undefined = Cookies.get('username');
     if (!username) {
       console.error('No username cookie found');
@@ -25,20 +25,12 @@ export function useProfile() {
         setUserProfile(Convert.toUserProfile(JSON.stringify(response.data)));
       })
       .catch(error => {
-        void message.error('No se ha podido mostrar el perfil del usuario');
-        console.error(error);
+        void message.error(`No se ha podido mostrar el perfil del usuario: ${error as string}`);
       });
-
   }, [token]);
 
-  useEffect(() => {
-    getUserProfile();
-  }, [getUserProfile]);
-
-  const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
-
   return {
-    userProfile: memoizedUserProfile,
-    getUserProfile: getUserProfile,
+    userProfile,
+    refreshUserProfile: () => setUserProfile(undefined),
   };
 }
