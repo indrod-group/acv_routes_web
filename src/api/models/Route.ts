@@ -26,10 +26,10 @@ export type PositionElement = {
     order: number;
 
     /** The distance of the position. Currently not used (null). */
-    distance: null;
+    distance: number | null;
 
     /** The estimated time to reach the position. Currently not used (null). */
-    estimated_time: null;
+    estimated_time: string | null;
 }
 
 /**

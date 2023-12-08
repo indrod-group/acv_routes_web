@@ -2,6 +2,8 @@ import React from 'react';
 import { Table, Alert } from 'antd';
 import { PositionElement } from '../../../api/models/Route';
 
+import { formatEstimatedTime, formatDistance } from './RouteUtils';
+
 type PositionTableProps = {
   positions: PositionElement[] | undefined;
   name: string;
@@ -27,17 +29,17 @@ const positionColumns = [
   {
     title: 'Distancia',
     dataIndex: 'distance',
-    render: (distance: null) => distance ?? 'N/A',
+    render: (distance: number | null) => distance != null ? formatDistance(distance) : 'N/A',
   },
   {
     title: 'Tiempo Estimado',
     dataIndex: 'estimated_time',
-    render: (estimated_time: null) => estimated_time ?? 'N/A',
+    render: (time: string | null) => time != null ? formatEstimatedTime(time) : 'N/A',
   },
 ];
 
 const getPositionData = (positions: PositionElement[] | undefined) => {
-  if(!positions) {
+  if (!positions) {
     return [];
   }
   const sortedPositions = [...positions].sort((a, b) => a.order - b.order);
