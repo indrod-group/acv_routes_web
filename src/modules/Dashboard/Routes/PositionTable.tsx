@@ -3,6 +3,7 @@ import { Table, Alert } from 'antd';
 import { PositionElement } from '../../../api/models/Route';
 
 import { formatEstimatedTime, formatDistance } from './RouteUtils';
+import RouteSummary from './RouteSummary';
 
 type PositionTableProps = {
   positions: PositionElement[] | undefined;
@@ -60,9 +61,7 @@ const PositionTable: React.FC<PositionTableProps> = ({ positions, name }) => {
 
   return (
     <>
-      <h2 className="mb-4 text-center font-bold">
-        Paradas de la {name}
-      </h2>
+      <RouteSummary positions={positions} name={name}/>
       {positionData?.length ? (
         <Table
           bordered
