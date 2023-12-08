@@ -40,7 +40,8 @@ const getPositionData = (positions: PositionElement[] | undefined) => {
   if(!positions) {
     return [];
   }
-  return positions?.map((position: PositionElement, index: number) => ({
+  const sortedPositions = [...positions].sort((a, b) => a.order - b.order);
+  return sortedPositions.map((position: PositionElement, index: number) => ({
     key: index,
     id: position.position.id,
     name: position.position.name,
