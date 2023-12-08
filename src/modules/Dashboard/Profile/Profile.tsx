@@ -23,7 +23,7 @@ const Profile: React.FC<ProfileProps> = ({ userProfile }) => {
           className="max-w-xs"
           title="Información del perfil"
         >
-          <Suspense fallback={<Spin />}>
+          <Suspense fallback={<Spin tip="Cargando datos..."/>}>
             <ProfileDescriptions userProfile={userProfile} />
           </Suspense>
         </Card>

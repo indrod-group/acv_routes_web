@@ -18,7 +18,7 @@ const RoutesComponent: React.FC = () => {
       </Header>
       <Content>
         <Card title="Información de las rutas">
-          <Suspense fallback={<Spin />}>
+          <Suspense fallback={<Spin tip="Buscando rutas..."/>}>
             <RouteTable routePositions={routePositions} />
           </Suspense>
         </Card>
