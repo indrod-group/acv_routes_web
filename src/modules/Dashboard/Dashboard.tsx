@@ -8,6 +8,7 @@ import menuItems from './MenuItems';
 import Profile from './Profile/Profile';
 import { useProfile } from './Profile/useProfile';
 import ServiceHoursLogModule from './ServiceHoursLog/ServiceHoursLog';
+import RoutesComponent from './Routes/Routes';
 
 const { Sider } = Layout;
 
@@ -28,7 +29,7 @@ const Dashboard: React.FC = () => {
 
   const routes: Record<string, () => void> = {
     '1': () => navigateAndGo('/dashboard/journey-tracker'),
-    '2': () => navigateAndGo('/dashboard/vehicles'),
+    '2': () => navigateAndGo('/dashboard/routes'),
     '3': () => navigateAndGo('/dashboard/user-profile'),
     '4': () => navigateAndGo('/dashboard/service-hours-log'),
     '5': handleLogout,
@@ -61,7 +62,7 @@ const Dashboard: React.FC = () => {
       </Sider>
       <Routes>
         <Route path="/journey-tracker" element={<JourneyTracker />} />
-        <Route path="/vehicles" element={<JourneyTracker />} />
+        <Route path="/routes" element={<RoutesComponent />} />
         <Route path="/user-profile" element={<Profile userProfile={userProfile} />} />
         <Route path="/service-hours-log" element={<ServiceHoursLogModule />} />
       </Routes>
