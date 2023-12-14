@@ -1,14 +1,5 @@
 import { Alarm } from '../../../api/models/Alarm';
-import { AlarmCode } from '../../../api/models/AlarmCodes';
-
-const options: Record<number, string> = Object.freeze({
-  0: 'Desconexión',
-  1: 'Apagado',
-  2: 'Encendido',
-  3: 'Descanso',
-  4: 'Act. Auxiliares',
-  5: 'Casos Excepcionales'
-});
+import { AlarmCode, options, AlarmCodeToValue } from '../../../api/models/AlarmCodes';
 
 export const getStatusLabel = (option: number): string => {
   return options[option] ?? 'Desconexión';
@@ -16,9 +7,9 @@ export const getStatusLabel = (option: number): string => {
 
 const createLastAlarm = (alarm: Alarm, startDate: Date): [Date, number] => {
   if (alarm.alarm_code === "ACCON") {
-    return [startDate, 1];
+    return [startDate, AlarmCodeToValue.ACCOFF];
   }
-  return [startDate, 2];
+  return [startDate, AlarmCodeToValue.ACCON];
 }
 
 export const filterAlarmsBy = (alarms: Alarm[], keys: string[]): Alarm[] => {
@@ -45,14 +36,14 @@ export const getStatusData = (alarms: Alarm[], startDate: Date, endDate: Date): 
       }
       // Convierte el tiempo Unix de segundos a milisegundos.
       const date = new Date(alarm.time * 1000);
-      const value = alarm.alarm_code === "ACCON" ? 2 : 1;
+      const value = AlarmCodeToValue[alarm.alarm_code]
       myMap.set(date, value);
       lastAlarm = alarm;
     }
   });
 
   if (lastAlarm !== null) {
-    myMap.set(endDate || new Date(), (lastAlarm as Alarm).alarm_code === "ACCON" ? 2 : 1);
+    myMap.set(endDate || new Date(), (lastAlarm as Alarm).alarm_code === "ACCON" ? AlarmCodeToValue.ACCON : AlarmCodeToValue.ACCOFF);
   }
 
   return myMap;
@@ -78,32 +69,6 @@ export const formatName = (name: string | null): string => {
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   });
   return names.join(" ");
-}
-
-export type Data = [Date, number][][];
-
-export const calculateTimeDifferences = (data: Data): [number, number] => {
-  let sum1 = 0;
-  let sum2 = 0;
-
-  for (let i = 0; i < data[0].length - 1; i++) {
-    const date1 = data[0][i][0];
-    const date2 = data[0][i + 1][0];
-    const diff = (date2.getTime() - date1.getTime()) / 1000;
-
-    if (data[0][i][1] === 1) {
-      sum1 += diff;
-    } else {
-      sum2 += diff;
-    }
-  }
-
-  // Comprueba el primer número del array para determinar el orden de los resultados
-  if (data?.[0]?.[0]?.[1] === 2) {
-    return [sum1, sum2];
-  } else {
-    return [sum2, sum1];
-  }  
 }
 
 export const getAlarmCode = (key: string): string => {

@@ -6,13 +6,12 @@ import {
   getStatusData,
   getStatusLabel,
   filterAlarmsBy,
-  Data,
-  calculateTimeDifferences,
   getTicks
 } from './ChartUtils';
 import VehicleStats from './VehicleStats';
 import * as d3 from 'd3';
 import { Device } from '../../../api/models/Device';
+import { TimeDifferenceCalculator, Data } from './HandlerTimes';
 
 interface ChartLogProps {
   selectedDevice: Device | null;
@@ -48,7 +47,7 @@ export default function ChartLog({ selectedDevice, alarms, startDate, endDate }:
   const [[timeOn, timeOff], setTime] = useState<number[]>([0, 0]);
   const handleTimes = useCallback((alarms: Data | null): void => {
     if (alarms !== null) {
-      setTime(calculateTimeDifferences(alarms));
+      setTime(TimeDifferenceCalculator.calculateTimeDifferences(alarms));
     }
   }, []);
 

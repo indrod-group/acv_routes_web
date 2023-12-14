@@ -7,6 +7,22 @@ export type AlarmCodeType = {
   [key: string]: string;
 };
 
+export const options: Record<number, string> = Object.freeze({
+  0: 'Desconexión',
+  1: 'Apagado',
+  2: 'Descanso',
+  3: 'Act. Auxiliares',
+  4: 'Casos Excepcionales',
+  5: 'Encendido',
+});
+
+export const AlarmCodeToValue: Record<string, number> = Object.freeze({
+  STAYTIMEOUT: 0,
+  ACCOFF: 1,
+  SOS:4,
+  ACCON: 5,
+});
+
 /**
  * Frozen object containing the alarm codes and their descriptions.
  */
