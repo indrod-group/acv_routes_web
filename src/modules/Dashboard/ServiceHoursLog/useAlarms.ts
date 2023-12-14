@@ -16,7 +16,7 @@ export function useAlarms({imei, startTime, endTime}: UseAlarmProps) {
 
   const fetchAlarms = useCallback(() => {
     if (imei && startTime && endTime && token) {
-      axios.get(`https://twlxb59c-8001.use2.devtunnels.ms/api/v1/alarms/?imei=${imei}&start_time=${startTime}&end_time=${endTime}`, {
+      axios.get(`https://twlxb59c-9090.use2.devtunnels.ms/api/v1/alarms/?imei=${imei}&start_time=${startTime}&end_time=${endTime}`, {
         headers: {
           'Authorization': `Token ${token.token}`
         }

@@ -16,7 +16,7 @@ export function useProfile() {
       console.error('No username cookie found');
       return;
     }
-    axios.get(`https://twlxb59c-8001.use2.devtunnels.ms/api/v1/users/?search=${username}`, {
+    axios.get(`https://twlxb59c-9090.use2.devtunnels.ms/api/v1/users/?search=${username}`, {
       headers: {
         Authorization: `Token ${token?.token as string}`,
       },
