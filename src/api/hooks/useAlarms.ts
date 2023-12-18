@@ -43,7 +43,7 @@ export function useAlarms({imei, startTime, endTime}: UseAlarmProps): { alarms: 
           const alarms = Convert.toAlarms(JSON.stringify(response.data));
           const sortedAlarms = Array.from(alarms).sort((a, b) => a.time - b.time);
           setAlarms(sortedAlarms);
-          void message.info('Se han obtenido las alarmas correctamente.');
+          void message.info('Las alarmas del dispositivo se han obtenido correctamente.');
         })
         .catch(error => {
           void message.error('Ha habido un problema obteniendo las alarmas.');
@@ -59,5 +59,5 @@ export function useAlarms({imei, startTime, endTime}: UseAlarmProps): { alarms: 
   return {
     alarms: alarms,
     fetchAlarms: fetchAlarms,
-  };
+  } as const;
 }

@@ -35,7 +35,7 @@ export function useDevices(): { devices: Device[], fetchDevices: () => void } {
           const devices = Convert.toDevices(JSON.stringify(response.data));
           const sortedDevices = Array.from(devices).sort((a, b) => a.user_name.localeCompare(b.user_name));
           setDevices(sortedDevices);
-          void message.info('Se han obtenido los dispositivos correctamente.');
+          void message.info('Los dispositivos se han obtenido correctamente.');
         })
         .catch(error => {
           console.error('Error fetching devices: ', error);
@@ -51,5 +51,5 @@ export function useDevices(): { devices: Device[], fetchDevices: () => void } {
   return {
     devices: devices,
     fetchDevices: fetchDevices,
-  };
+  } as const;
 }
