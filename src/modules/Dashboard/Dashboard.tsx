@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+import Cookies from 'js-cookie';
 
 import JourneyTracker from './VehicleRoutes/JourneyTracker';
 import Logo from './Logo';
@@ -16,6 +17,8 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    Cookies.remove('userProfile');
+    Cookies.remove('username');
     localStorage.removeItem('token');
     navigate("/login");
   }
