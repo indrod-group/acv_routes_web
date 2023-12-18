@@ -5,7 +5,7 @@ import { DeviceList } from './Devices';
 import { DatePicker, Card, Alert, Button, Tabs, Layout } from 'antd';
 import dayjs from 'dayjs';
 import { AlarmTable } from './AlarmTable';
-import { useAlarms } from './useAlarms';
+import { useAlarms } from '../../../api/hooks/useAlarms';
 import DeviceDescription from './DeviceDescription';
 import TimeLineAlarms from './TimeLine';
 import { Device } from '../../../api/models/Device';

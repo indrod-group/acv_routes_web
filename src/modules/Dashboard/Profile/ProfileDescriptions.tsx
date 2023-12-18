@@ -2,13 +2,11 @@ import React from 'react';
 import { Descriptions } from 'antd';
 import type { DescriptionsProps } from 'antd';
 
-import { UserProfile } from '../../../api/models/UserProfile';
+import useProfile from '../../../api/hooks/useProfile';
+import type { UserProfile } from '../../../api/models/UserProfile';
 
-type ProfileDescriptionsProps = {
-  userProfile: UserProfile | undefined;
-}
-
-const ProfileDescriptions: React.FC<ProfileDescriptionsProps> = ({ userProfile }) => {
+const ProfileDescriptions: React.FC = () => {
+  const { userProfile } = useProfile() as { userProfile: UserProfile };
   const items: DescriptionsProps['items'] = userProfile ? [
     {
       key: '1',

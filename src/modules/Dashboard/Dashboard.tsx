@@ -6,7 +6,6 @@ import JourneyTracker from './VehicleRoutes/JourneyTracker';
 import Logo from './Logo';
 import menuItems from './MenuItems';
 import Profile from './Profile/Profile';
-import { useProfile } from './Profile/useProfile';
 import ServiceHoursLogModule from './ServiceHoursLog/ServiceHoursLog';
 import RoutesComponent from './Routes/Routes';
 
@@ -14,7 +13,6 @@ const { Sider } = Layout;
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const { userProfile } = useProfile();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -63,7 +61,7 @@ const Dashboard: React.FC = () => {
       <Routes>
         <Route path="/journey-tracker" element={<JourneyTracker />} />
         <Route path="/routes" element={<RoutesComponent />} />
-        <Route path="/user-profile" element={<Profile userProfile={userProfile} />} />
+        <Route path="/user-profile" element={<Profile />} />
         <Route path="/service-hours-log" element={<ServiceHoursLogModule />} />
       </Routes>
 

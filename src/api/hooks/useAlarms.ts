@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import useToken from '../../Login/useToken';
-import { Alarm } from '../../../api/models/Alarm';
-import { Convert } from '../../../api/Conversor';
+import useToken from './useToken';
+import { Alarm } from '../models/Alarm';
+import { Convert } from '../Conversor';
 
 interface UseAlarmProps {
   imei: string | null;

@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
-import useToken from '../../Login/useToken';
-import { Convert } from '../../../api/Conversor';
-import { Route } from '../../../api/models/Route';
+import useToken from './useToken';
+import { Convert } from '../Conversor';
+import { Route } from '../models/Route';
 import axios from 'axios';
 import { message } from 'antd';
-import { useProfile } from '../Profile/useProfile';
+
+import useProfile from './useProfile';
+import type { UserProfile } from '../models/UserProfile';
 
 export function useRoutePositions() {
   const { token } = useToken();
-  const { userProfile } = useProfile();
+  const { userProfile } = useProfile() as { userProfile: UserProfile };
 
   const [routePositions, setRoutePositions] = useState<Route[]>();
 

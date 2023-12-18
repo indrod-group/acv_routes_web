@@ -1,16 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import { Layout, Card, Spin } from 'antd';
-import { UserProfile } from '../../../api/models/UserProfile';
 
 const { Header, Content, Footer } = Layout;
 
 const ProfileDescriptions = lazy(() => import('./ProfileDescriptions'));
 
-type ProfileProps = {
-  userProfile: UserProfile | undefined;
-}
-
-const Profile: React.FC<ProfileProps> = ({ userProfile }) => {
+const Profile: React.FC = () => {
   return (
     <Layout className="site-layout">
       <Header className="flex top-0 w-full  items-center justify-center print:hidden">
@@ -24,7 +19,7 @@ const Profile: React.FC<ProfileProps> = ({ userProfile }) => {
           title="Información del perfil"
         >
           <Suspense fallback={<Spin tip="Cargando datos..."/>}>
-            <ProfileDescriptions userProfile={userProfile} />
+            <ProfileDescriptions />
           </Suspense>
         </Card>
       </Content>

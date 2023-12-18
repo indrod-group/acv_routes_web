@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Layout, Card, Spin } from 'antd';
-import { useRoutePositions } from './useRoutePositions';
+import { useRoutePositions } from '../../../api/hooks/useRoutePositions';
 
 const { Header, Content, Footer } = Layout;
 

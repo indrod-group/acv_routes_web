@@ -1,13 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import useToken from '../../Login/useToken';
-import { Device } from '../../../api/models/Device';
-import { Convert } from '../../../api/Conversor';
-import { useProfile } from '../Profile/useProfile';
+import useToken from './useToken';
+import { Device } from '../models/Device';
+import { Convert } from '../Conversor';
+import useProfile from './useProfile';
+import type { UserProfile } from '../models/UserProfile';
 
 export function useDevices() {
   const { token } = useToken();
-  const { userProfile } = useProfile();
+  const { userProfile } = useProfile() as { userProfile: UserProfile };
   const [devices, setDevices] = useState<Device[]>([]);
 
   const fetchDevices = useCallback(() => {
