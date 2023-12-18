@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
-import useToken from './useToken';
+import { message } from 'antd';
+
 import { Alarm } from '../models/Alarm';
 import { Convert } from '../Conversor';
+import useApi from './useApi';
 
 interface UseAlarmProps {
   imei: string | null;
@@ -10,34 +11,53 @@ interface UseAlarmProps {
   endTime: number | null;
 }
 
-export function useAlarms({imei, startTime, endTime}: UseAlarmProps) {
-  const { token } = useToken();
+/**
+ * useAlarms hook
+ * 
+ * This hook is used to fetch and handle alarms from a specific device.
+ * 
+ * @param props - The properties of the hook.
+ * @param props.imei - The IMEI of the device.
+ * @param props.startTime - The start time for fetching alarms.
+ * @param props.endTime - The end time for fetching alarms.
+ * 
+ * @returns The state and functions of the hook.
+ * @returns .alarms - The fetched alarms.
+ * @returns .fetchAlarms - The function to fetch alarms.
+ */
+export function useAlarms({imei, startTime, endTime}: UseAlarmProps): { alarms: Alarm[], fetchAlarms: () => void } {
   const [alarms, setAlarms] = useState<Alarm[]>([]);
+  const api = useApi();
 
+  /**
+   * fetchAlarms
+   * 
+   * This function is used to fetch alarms from a specific device.
+   * The alarms are sorted by time and stored in the state.
+   * If an error occurs while fetching the alarms, an error message is displayed.
+   */
   const fetchAlarms = useCallback(() => {
-    if (imei && startTime && endTime && token) {
-      axios.get(`https://twlxb59c-9090.use2.devtunnels.ms/api/v1/alarms/?imei=${imei}&start_time=${startTime}&end_time=${endTime}`, {
-        headers: {
-          'Authorization': `Token ${token.token}`
-        }
-      })
+    if (imei && startTime && endTime) {
+      api.get(`/alarms/?imei=${imei}&start_time=${startTime}&end_time=${endTime}`)
         .then(response => {
-          setAlarms(Convert.toAlarms(JSON.stringify(response.data)));
+          const alarms = Convert.toAlarms(JSON.stringify(response.data));
+          const sortedAlarms = Array.from(alarms).sort((a, b) => a.time - b.time);
+          setAlarms(sortedAlarms);
+          void message.info('Se han obtenido las alarmas correctamente.');
         })
         .catch(error => {
+          void message.error('Ha habido un problema obteniendo las alarmas.');
           console.error('Error fetching data: ', error);
         })
     }
-  }, [imei, startTime, endTime, token]);
+  }, [imei, startTime, endTime, api]);
 
   useEffect(() => {
     fetchAlarms();
   }, [fetchAlarms]);
 
-  const sortedData = Array.from(alarms).sort((a, b) => a.time - b.time);
-
   return {
-    alarms: sortedData,
+    alarms: alarms,
     fetchAlarms: fetchAlarms,
   };
 }
