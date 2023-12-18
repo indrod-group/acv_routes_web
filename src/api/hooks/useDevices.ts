@@ -16,7 +16,7 @@ import useApi from './useApi';
  * @returns {Device[]} .devices - The fetched devices, sorted by user name.
  * @returns {() => void} .fetchDevices - The function to fetch devices.
  */
-export function useDevices(): { devices: Device[], fetchDevices: () => void } {
+function useDevices(): { devices: Device[], fetchDevices: () => void } {
   const { userProfile } = useProfile() as { userProfile: UserProfile };
   const [devices, setDevices] = useState<Device[]>([]);
   const api = useApi();
@@ -53,3 +53,5 @@ export function useDevices(): { devices: Device[], fetchDevices: () => void } {
     fetchDevices: fetchDevices,
   } as const;
 }
+
+export default useDevices;

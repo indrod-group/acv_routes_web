@@ -16,7 +16,7 @@ import useApi from './useApi';
  * @returns {Route[] | undefined} .routePositions - The fetched route positions.
  * @returns {() => void} .refreshRoutePositions - The function to refresh the route positions.
  */
-export function useRoutePositions(): { routePositions: Route[] | undefined, refreshRoutePositions: () => void } {
+function useRoutePositions(): { routePositions: Route[] | undefined, refreshRoutePositions: () => void } {
   const [routePositions, setRoutePositions] = useState<Route[]>();
   const { userProfile } = useProfile() as { userProfile: UserProfile };
   const api = useApi();
@@ -42,3 +42,5 @@ export function useRoutePositions(): { routePositions: Route[] | undefined, refr
     refreshRoutePositions: () => setRoutePositions(undefined),
   };
 }
+
+export default useRoutePositions;

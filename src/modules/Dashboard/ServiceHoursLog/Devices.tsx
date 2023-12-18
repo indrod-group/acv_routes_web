@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Table, Card, Pagination } from 'antd';
-import { useDevices } from '../../../api/hooks/useDevices';
+import { useDevices } from '../../../api/hooks';
 import { censoreIMEI, formatName } from './ChartUtils';
 import { Device } from '../../../api/models/Device';
 

@@ -25,7 +25,7 @@ interface UseAlarmProps {
  * @returns .alarms - The fetched alarms.
  * @returns .fetchAlarms - The function to fetch alarms.
  */
-export function useAlarms({imei, startTime, endTime}: UseAlarmProps): { alarms: Alarm[], fetchAlarms: () => void } {
+function useAlarms({imei, startTime, endTime}: UseAlarmProps): { alarms: Alarm[], fetchAlarms: () => void } {
   const [alarms, setAlarms] = useState<Alarm[]>([]);
   const api = useApi();
 
@@ -61,3 +61,5 @@ export function useAlarms({imei, startTime, endTime}: UseAlarmProps): { alarms: 
     fetchAlarms: fetchAlarms,
   } as const;
 }
+
+export default useAlarms;

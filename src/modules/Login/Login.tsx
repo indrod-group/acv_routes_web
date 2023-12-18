@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import { Form, Input, Button, Layout, Card, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import { UserToken } from '../../api/hooks/useTokenhooks/useToken'
+import { UserToken } from '../../api/hooks/useToken'
 
 type Credentials = {
   username: string;
