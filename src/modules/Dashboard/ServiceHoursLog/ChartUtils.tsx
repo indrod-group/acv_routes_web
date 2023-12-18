@@ -1,4 +1,4 @@
-import { Alarm } from '../../../api/models/Alarm';
+import type { Alarm } from '../../../api/models';
 import { AlarmCode, options, AlarmCodeToValue } from '../../../api/models/AlarmCodes';
 
 export const getStatusLabel = (option: number): string => {

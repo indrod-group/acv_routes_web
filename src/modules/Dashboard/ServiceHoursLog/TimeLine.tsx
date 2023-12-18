@@ -13,7 +13,7 @@ import {
   ThunderboltOutlined
 } from '@ant-design/icons';
 import { getAlarmCode } from './ChartUtils';
-import { Alarm } from '../../../api/models/Alarm';
+import type { Alarm } from '../../../api/models';
 
 interface TimeLineAlarmsProps {
   alarms: Alarm[];

@@ -3,7 +3,7 @@ import { Descriptions } from 'antd';
 import type { DescriptionsProps } from 'antd';
 
 import { useProfile } from '../../../api/hooks';
-import type { UserProfile } from '../../../api/models/UserProfile';
+import type { UserProfile } from '../../../api/models';
 
 const ProfileDescriptions: React.FC = () => {
   const { userProfile } = useProfile() as { userProfile: UserProfile };

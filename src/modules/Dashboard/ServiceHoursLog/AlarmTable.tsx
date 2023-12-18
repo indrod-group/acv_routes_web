@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Table, Pagination, Card } from 'antd';
 import { getAlarmCode } from './ChartUtils';
-import { Alarm } from '../../../api/models/Alarm';
+import { Alarm } from '../../../api/models';
 
 interface AlarmTableProps {
   alarms: Alarm[];

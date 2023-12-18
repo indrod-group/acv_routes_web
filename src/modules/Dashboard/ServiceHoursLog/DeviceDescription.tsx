@@ -1,6 +1,6 @@
 import { Card, Descriptions, Alert } from "antd";
 import { censoreIMEI, formatName } from "./ChartUtils";
-import { Device } from "../../../api/models/Device";
+import type { Device } from "../../../api/models";
 
 interface DeviceDescriptionProps {
   selectedDevice: Device | null;

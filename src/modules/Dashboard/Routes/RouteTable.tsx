@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
-import { Route } from '../../../api/models/Route';
+import { Route } from '../../../api/models';
 import PositionTable from './PositionTable';
 
 type RouteTableProps = {

@@ -8,7 +8,7 @@ import { AlarmTable } from './AlarmTable';
 import { useAlarms } from '../../../api/hooks';
 import DeviceDescription from './DeviceDescription';
 import TimeLineAlarms from './TimeLine';
-import { Device } from '../../../api/models/Device';
+import type { Device } from '../../../api/models';
 import ServiceHoursRecord from './ModuleForPrint';
 
 const { TabPane } = Tabs;

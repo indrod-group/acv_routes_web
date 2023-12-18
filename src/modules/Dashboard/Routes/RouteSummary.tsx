@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Descriptions } from 'antd';
 import { formatDistance, formatEstimatedTime } from './RouteUtils';
-import { PositionElement } from '../../../api/models/Route';
+import { PositionElement } from '../../../api/models';
 
 type RouteSummaryProps = {
 	positions: PositionElement[] | undefined;

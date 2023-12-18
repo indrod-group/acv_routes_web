@@ -2,7 +2,7 @@ import { Card, Col, Row, Statistic, Popover, Space, Typography } from 'antd';
 import { CheckCircleTwoTone, ClockCircleTwoTone, CarTwoTone, ExclamationCircleTwoTone, HourglassTwoTone, NotificationTwoTone } from '@ant-design/icons';
 
 import { filterAlarmsBy, getAlarmCode } from './ChartUtils';
-import { Alarm } from '../../../api/models/Alarm';
+import type { Alarm } from '../../../api/models';
 
 interface VehicleStatsProps {
   timeOn: number;

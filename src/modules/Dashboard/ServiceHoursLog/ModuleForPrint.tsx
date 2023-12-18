@@ -1,6 +1,5 @@
 import { Alert, Card } from "antd";
-import { Alarm } from "../../../api/models/Alarm";
-import { Device } from "../../../api/models/Device";
+import type { Alarm, Device } from "../../../api/models";
 import ChartLog from "./ChartLog";
 import DeviceDescription from "./DeviceDescription";
 import TimeLineAlarms from "./TimeLine";

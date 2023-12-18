@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Card } from 'antd';
-import { Alarm } from '../../../api/models/Alarm';
 import {
   getStatusData,
   getStatusLabel,
@@ -10,7 +9,7 @@ import {
 } from './ChartUtils';
 import VehicleStats from './VehicleStats';
 import * as d3 from 'd3';
-import { Device } from '../../../api/models/Device';
+import type { Alarm, Device } from '../../../api/models';
 import { TimeDifferenceCalculator, Data } from './HandlerTimes';
 
 interface ChartLogProps {

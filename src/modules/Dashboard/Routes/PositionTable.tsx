@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Alert } from 'antd';
-import { PositionElement } from '../../../api/models/Route';
+import { PositionElement } from '../../../api/models';
 
 import { formatEstimatedTime, formatDistance } from './RouteUtils';
 import RouteSummary from './RouteSummary';

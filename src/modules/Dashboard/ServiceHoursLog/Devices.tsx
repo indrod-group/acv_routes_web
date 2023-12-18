@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Table, Card, Pagination } from 'antd';
 import { useDevices } from '../../../api/hooks';
 import { censoreIMEI, formatName } from './ChartUtils';
-import { Device } from '../../../api/models/Device';
+import type { Device } from '../../../api/models';
 
 interface DeviceListProps {
   onDeviceSelect: (device: Device) => void;
