@@ -89,40 +89,59 @@ const getTimes = (seconds: number): [number, number, number] => {
   return [days, hours, minutes];
 }
 
+const WIDTH_THRESHOLD = 800;
+
+const TICK_VALUES = {
+  ZERO: 0,
+  ONE: 1,
+  TWO: 2,
+  THREE: 3,
+  FIVE: 5,
+  FOURTEEN: 14,
+  FIFTEEN: 15,
+  THIRTY: 30,
+  SIXTY: 60,
+  ONE_TWENTY: 120,
+  TWO_FORTY: 240,
+  SEVEN_TWENTY: 720,
+  ONE_FOUR_FOUR_ZERO: 1440,
+  TWO_EIGHT_EIGHT_ZERO: 2880,
+};
+
 export const getTicks = (width: number, time: number): number => {
   const [days, hours, minutes] = getTimes(time);
-  if (width <= 800) {
-    if (hours === 0 && days === 0) {
-      return 5;
+  if (width <= WIDTH_THRESHOLD) {
+    if (hours === TICK_VALUES.ZERO && days === TICK_VALUES.ZERO) {
+      return TICK_VALUES.FIVE;
     }
-    if (days === 0) {
-      return 12 <= hours && hours <= 24 ? 60 : 30;
+    if (days === TICK_VALUES.ZERO) {
+      return TICK_VALUES.THIRTY <= hours && hours <= TICK_VALUES.SIXTY ? TICK_VALUES.SIXTY : TICK_VALUES.THIRTY;
     }
-    if (days === 1 || days === 2 || days === 3) {
-      return 240;
+    if (days === TICK_VALUES.ONE || days === TICK_VALUES.TWO || days === TICK_VALUES.THREE) {
+      return TICK_VALUES.TWO_FORTY;
     }
-    if (days > 3 || days < 14) {
-      return 1440;
+    if (days > TICK_VALUES.THREE && days < TICK_VALUES.FOURTEEN) {
+      return TICK_VALUES.ONE_FOUR_FOUR_ZERO;
     }
-    if (days >= 14) {
-      return 2880;
+    if (days >= TICK_VALUES.FOURTEEN) {
+      return TICK_VALUES.TWO_EIGHT_EIGHT_ZERO;
     }
   } else {
-    if (hours === 0 && days === 0) {
-      return minutes < 30 ? 1 : 5;
+    if (hours === TICK_VALUES.ZERO && days === TICK_VALUES.ZERO) {
+      return minutes < TICK_VALUES.THIRTY ? TICK_VALUES.ONE : TICK_VALUES.FIVE;
     }
-    if (days === 0) {
-      return 12 <= hours && hours <= 24 ? 30 : 15;
+    if (days === TICK_VALUES.ZERO) {
+      return TICK_VALUES.THIRTY <= hours && hours <= TICK_VALUES.SIXTY ? TICK_VALUES.THIRTY : TICK_VALUES.FIFTEEN;
     }
-    if (days === 1 || days === 2 || days === 3) {
-      return 120;
+    if (days === TICK_VALUES.ONE || days === TICK_VALUES.TWO || days === TICK_VALUES.THREE) {
+      return TICK_VALUES.ONE_TWENTY;
     }
-    if (days > 3 || days < 14) {
-      return 720;
+    if (days > TICK_VALUES.THREE && days < TICK_VALUES.FOURTEEN) {
+      return TICK_VALUES.SEVEN_TWENTY;
     }
-    if (days >= 14) {
-      return 1440;
+    if (days >= TICK_VALUES.FOURTEEN) {
+      return TICK_VALUES.ONE_FOUR_FOUR_ZERO;
     }
   }
-  return 30;
+  return TICK_VALUES.THIRTY;
 }
