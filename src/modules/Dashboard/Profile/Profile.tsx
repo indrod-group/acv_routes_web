@@ -7,7 +7,7 @@ const ProfileDescriptions = lazy(() => import('./ProfileDescriptions'));
 
 const Profile: React.FC = () => {
   return (
-    <Layout className="site-layout">
+    <Layout>
       <Header className="flex top-0 w-full  items-center justify-center print:hidden">
         <h2 className="text-sm sm:text-base md:text-lg lg:text-xl text-white text-opacity-80 text-ellipsis">
           Perfil
