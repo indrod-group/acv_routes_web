@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Layout, Card, Spin } from 'antd';
+import { Layout, Card, Spin, Watermark } from 'antd';
 import { useRoutePositions } from '../../../api/hooks';
 
 const { Header, Content, Footer } = Layout;
@@ -17,11 +17,18 @@ const RoutesComponent: React.FC = () => {
         </h2>
       </Header>
       <Content>
-        <Card title="Información de las rutas">
-          <Suspense fallback={<Spin tip="Buscando rutas..."/>}>
-            <RouteTable routePositions={routePositions} />
-          </Suspense>
-        </Card>
+        <Watermark
+          content="En pruebas"
+          zIndex={1000}
+          rotate={-22}
+        >
+          <Card title="Información de las rutas">
+            <Suspense fallback={<Spin tip="Buscando rutas..." />}>
+              <RouteTable routePositions={routePositions} />
+            </Suspense>
+          </Card>
+        </Watermark>
+
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         WanWayTech © {new Date().getFullYear()}

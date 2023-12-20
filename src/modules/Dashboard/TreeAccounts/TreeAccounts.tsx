@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Layout, Card, Spin } from 'antd';
+import { Layout, Card, Spin, Watermark } from 'antd';
 
 const { Header, Content, Footer } = Layout;
 
@@ -14,14 +14,20 @@ const Profile: React.FC = () => {
         </h2>
       </Header>
       <Content>
-        <Card
-          className="max-w-xs"
-          title="Subcuentas"
+        <Watermark
+          content="En pruebas"
+          zIndex={1000}
+          rotate={-22}
         >
-          <Suspense fallback={<Spin tip="Cargando datos..." />}>
-            <TreeAccount />
-          </Suspense>
-        </Card>
+          <Card
+            className="max-w-xs"
+            title="Subcuentas"
+          >
+            <Suspense fallback={<Spin tip="Cargando datos..." />}>
+              <TreeAccount />
+            </Suspense>
+          </Card>
+        </Watermark>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         WanWayTech © {new Date().getFullYear()}
