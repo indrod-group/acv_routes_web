@@ -24,8 +24,9 @@ const menuItems: MenuItem[] = [
     getItem('Rutas de viaje', '1', <PieChartOutlined />,),
     getItem('Rutas', '2', <HeatMapOutlined />,),
     getItem('Perfil', '3', <UserOutlined />,),
-    getItem('Bitácora', '4', <DesktopOutlined />,),
-    getItem('Cerrar sesión', '5', <LogoutOutlined />,),
+    getItem('Subcuentas', '4', <UserOutlined />,),
+    getItem('Bitácora', '5', <DesktopOutlined />,),
+    getItem('Cerrar sesión', '6', <LogoutOutlined />,),
 ];
 
 export default menuItems;

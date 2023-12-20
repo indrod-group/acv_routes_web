@@ -6,8 +6,9 @@ const routes: Record<string, string> = {
   '1': '/dashboard/journey-tracker',
   '2': '/dashboard/routes',
   '3': '/dashboard/user-profile',
-  '4': '/dashboard/service-hours-log',
-  '5': '/login',
+  '4': '/dashboard/tree-accounts',
+  '5': '/dashboard/service-hours-log',
+  '6': '/login',
 };
 
 const handleLogout = () => {

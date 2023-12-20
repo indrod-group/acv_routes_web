@@ -7,6 +7,7 @@ import Profile from './Profile/Profile';
 import ServiceHoursLogModule from './ServiceHoursLog/ServiceHoursLog';
 import RoutesComponent from './Routes/Routes';
 import SidebarMenu from './MenuSidebar';
+import TreeAccount from './TreeAccounts/TreeAccounts';
 
 const Dashboard: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const Dashboard: React.FC = () => {
         <Route path="/routes" element={<RoutesComponent />} />
         <Route path="/user-profile" element={<Profile />} />
         <Route path="/service-hours-log" element={<ServiceHoursLogModule />} />
+        <Route path="/tree-accounts" element={<TreeAccount />} />
       </Routes>
     </Layout >
   );
