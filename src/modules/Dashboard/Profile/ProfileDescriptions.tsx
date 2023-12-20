@@ -35,8 +35,8 @@ const ProfileDescriptions: React.FC = () => {
     },
     {
       key: '6',
-      label: 'Rol',
-      children: <p>{userProfile.role}</p>,
+      label: 'Roles',
+      children: <p>{userProfile.roles.join(', ')}</p>,
     },
   ] : [];
 
