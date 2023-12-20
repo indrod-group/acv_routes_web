@@ -4,6 +4,7 @@ import { Layout, Card, Spin } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 const ProfileDescriptions = lazy(() => import('./ProfileDescriptions'));
+const ChangePassword = lazy(() => import('./ChangePassword')); // Add this line
 
 const Profile: React.FC = () => {
   return (
@@ -18,10 +19,13 @@ const Profile: React.FC = () => {
           className="max-w-xs"
           title="Información del perfil"
         >
-          <Suspense fallback={<Spin tip="Cargando datos..."/>}>
+          <Suspense fallback={<Spin tip="Cargando datos..." />}>
             <ProfileDescriptions />
           </Suspense>
         </Card>
+        <Suspense fallback={<Spin tip="Cargando datos..." />}>
+          <ChangePassword />
+        </Suspense>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         WanWayTech © {new Date().getFullYear()}
