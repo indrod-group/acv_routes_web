@@ -8,7 +8,7 @@ export default function useApi() {
 
   const api = useMemo(() => {
     return axios.create({
-      baseURL: 'https://twlxb59c-9090.use2.devtunnels.ms/api/v1',
+      baseURL: 'https://jsn3h3ck-9090.use.devtunnels.ms/api/v1',
       headers: {
         Authorization: `Token ${userToken?.token as string}`,
       },
