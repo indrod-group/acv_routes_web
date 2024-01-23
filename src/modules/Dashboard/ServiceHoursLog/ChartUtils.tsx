@@ -97,8 +97,10 @@ const TICK_VALUES = {
   TWO: 2,
   THREE: 3,
   FIVE: 5,
+  TWELVE: 12,
   FOURTEEN: 14,
   FIFTEEN: 15,
+  TWENTY_FOUR: 24,
   THIRTY: 30,
   SIXTY: 60,
   ONE_TWENTY: 120,
@@ -115,7 +117,7 @@ export const getTicks = (width: number, time: number): number => {
       return TICK_VALUES.FIVE;
     }
     if (days === TICK_VALUES.ZERO) {
-      return TICK_VALUES.THIRTY <= hours && hours <= TICK_VALUES.SIXTY ? TICK_VALUES.SIXTY : TICK_VALUES.THIRTY;
+      return TICK_VALUES.TWELVE <= hours && hours <= TICK_VALUES.TWENTY_FOUR ? TICK_VALUES.SIXTY : TICK_VALUES.THIRTY;
     }
     if (days === TICK_VALUES.ONE || days === TICK_VALUES.TWO || days === TICK_VALUES.THREE) {
       return TICK_VALUES.TWO_FORTY;
@@ -131,7 +133,7 @@ export const getTicks = (width: number, time: number): number => {
       return minutes < TICK_VALUES.THIRTY ? TICK_VALUES.ONE : TICK_VALUES.FIVE;
     }
     if (days === TICK_VALUES.ZERO) {
-      return TICK_VALUES.THIRTY <= hours && hours <= TICK_VALUES.SIXTY ? TICK_VALUES.THIRTY : TICK_VALUES.FIFTEEN;
+      return TICK_VALUES.TWELVE <= hours && hours <= TICK_VALUES.TWENTY_FOUR ? TICK_VALUES.THIRTY : TICK_VALUES.FIFTEEN;
     }
     if (days === TICK_VALUES.ONE || days === TICK_VALUES.TWO || days === TICK_VALUES.THREE) {
       return TICK_VALUES.ONE_TWENTY;
