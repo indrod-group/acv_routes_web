@@ -40,12 +40,18 @@ const columns = [
     render: (vin: string) => vin || 'N/A'
   }
 ];
-
 export const DeviceList = ({ onDeviceSelect }: DeviceListProps) => {
   const [selectedImei, setSelectedImei] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const { devices } = useDevices();
+
+  const devicesByImei = devices.reduce((acc: Record<string, Device>, device: Device) => {
+    acc[device.imei] = device;
+    return acc;
+  }, {});  
+
+  const uniqueDevices = Object.values(devicesByImei);
 
   const handlePageChange = (page: number, pageSize?: number) => {
     setCurrentPage(page);
@@ -56,13 +62,13 @@ export const DeviceList = ({ onDeviceSelect }: DeviceListProps) => {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentDevices = devices.slice(startIndex, endIndex);
+  const currentDevices = uniqueDevices.slice(startIndex, endIndex);
 
   return (
     <Card title={"Dispositivos monitoreados"} className="flex-col space-x-4 print:block">
       <Pagination
         className="mt-4 mb-4 mx-auto content-center"
-        total={devices.length}
+        total={uniqueDevices.length}
         current={currentPage}
         onChange={handlePageChange}
         defaultPageSize={itemsPerPage}
