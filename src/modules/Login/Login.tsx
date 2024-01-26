@@ -19,7 +19,7 @@ type LoginProps = {
 
 async function loginUser(credentials: Credentials): Promise<UserToken> {
   const response = await axios.post<UserToken>(
-    'https://dhv3xx31-9090.use.devtunnels.ms/api_generate_token/',
+    'https://nnvxdkrd-9090.use.devtunnels.ms/api_generate_token/',
     credentials
   );
   return response.data;
