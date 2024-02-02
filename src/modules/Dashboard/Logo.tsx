@@ -21,7 +21,7 @@ const Logo: React.FC<LogoProps> = ({ collapsed }) => {
       <h1
         className={`text-2xl text-slate-100 ${collapsed ? 'hidden' : 'block'}`}
       >
-        Sistema de administración de vehículos y rutas
+        Sistema de administración de vehículos
       </h1>
     </div>
   );

@@ -41,7 +41,7 @@ const LoginForm: React.FC<LoginProps> = ({ setToken }) => {
   return (
     <Layout className="layout flex flex-col min-h-screen h-screen m-0 mx-auto">
       <Layout.Header className="header flex justify-center items-center">
-        <h1 className="text-white text-2xl">ACV - Rutas</h1>
+        <h1 className="text-white text-2xl">Bitácora de conducción y sistema de administración de vehículos </h1>
       </Layout.Header>
       <Layout.Content className="content">
         <Card
@@ -85,7 +85,7 @@ const LoginForm: React.FC<LoginProps> = ({ setToken }) => {
         </Card>
       </Layout.Content>
       <Layout.Footer style={{ textAlign: 'center' }}>
-        ACV - Routes © {new Date().getFullYear()}
+        WanWayTechEcuador © {new Date().getFullYear()}
       </Layout.Footer>
     </Layout>
   );
