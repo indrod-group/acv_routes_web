@@ -47,57 +47,59 @@ export default function ServiceHoursLogModule() {
         </h2>
       </Header>
       <Content>
-        <Tabs className="print:hidden" defaultActiveKey="1">
-          <TabPane tab="Dispositivos" key="1">
-            <DeviceList onDeviceSelect={handleDeviceSelect} />
-          </TabPane>
-          <TabPane tab="Gráfica de movimiento" key="2">
-            {selectedDevice && startDate && endDate && alarms && alarms.length > 0 ? (
-              <ChartLog selectedDevice={selectedDevice} alarms={alarms} startDate={startDate} endDate={endDate} />
-            ) : (
-              <Alert message="No hay datos que graficar." type="warning" showIcon />
-            )}
-            <DeviceDescription selectedDevice={selectedDevice} />
-            <Card className="p-4 print:block">
-              <div className="flex space-x-4 items-center">
-                <p>Fecha inicial:</p>
-                <DatePicker
-                  showTime value={dayjs(startDate)}
-                  onChange={(date) => setStartDate(date ? date.toDate() : null)}
-                  onOk={(date) => setStartDate(date ? date.toDate() : null)}
-                  showNow={false}
-                  className="border p-2 rounded text-black"
-                />
-                <p>Fecha final:</p>
-                <DatePicker
-                  showTime value={dayjs(endDate)}
-                  onChange={(date) => setEndDate(date ? date.toDate() : null)}
-                  disabledDate={disabledDate}
-                  onOk={(date) => setEndDate(date ? date.toDate() : null)}
-                  showNow={true}
-                  className="border p-2 rounded text-black"
-                />
-                <Button onClick={setEndDateToNow}>Seleccionar fecha y hora actual</Button>
-              </div>
-            </Card>
-          </TabPane>
-          <TabPane tab="Alarmas del dispositivo" key="3">
-            {selectedDevice && startDate && endDate && alarms && alarms.length > 0 ? (
-              <AlarmTable alarms={alarms} />
-            ) : (
-              <Alert message="No existen alarmas registradas. Por favor, seleccione un dispositivo u otro intervalo de tiempo." type="info" showIcon />
-            )}
-          </TabPane>
-          <TabPane tab="Línea de tiempo" key="4">
-            <TimeLineAlarms alarms={alarms} />
-          </TabPane>
-        </Tabs>
-        <ServiceHoursRecord
-          selectedDevice={selectedDevice}
-          startDate={startDate}
-          endDate={endDate}
-          alarms={alarms}
-        />
+        <Card>
+          <Tabs className="print:hidden" defaultActiveKey="1">
+            <TabPane tab="Dispositivos" key="1">
+              <DeviceList onDeviceSelect={handleDeviceSelect} />
+            </TabPane>
+            <TabPane tab="Gráfica de movimiento" key="2">
+              {selectedDevice && startDate && endDate && alarms && alarms.length > 0 ? (
+                <ChartLog selectedDevice={selectedDevice} alarms={alarms} startDate={startDate} endDate={endDate} />
+              ) : (
+                <Alert message="No hay datos que graficar." type="warning" showIcon />
+              )}
+              <DeviceDescription selectedDevice={selectedDevice} />
+              <Card className="p-4 print:block">
+                <div className="flex space-x-4 items-center">
+                  <p>Fecha inicial:</p>
+                  <DatePicker
+                    showTime value={dayjs(startDate)}
+                    onChange={(date) => setStartDate(date ? date.toDate() : null)}
+                    onOk={(date) => setStartDate(date ? date.toDate() : null)}
+                    showNow={false}
+                    className="border p-2 rounded text-black"
+                  />
+                  <p>Fecha final:</p>
+                  <DatePicker
+                    showTime value={dayjs(endDate)}
+                    onChange={(date) => setEndDate(date ? date.toDate() : null)}
+                    disabledDate={disabledDate}
+                    onOk={(date) => setEndDate(date ? date.toDate() : null)}
+                    showNow={true}
+                    className="border p-2 rounded text-black"
+                  />
+                  <Button onClick={setEndDateToNow}>Seleccionar fecha y hora actual</Button>
+                </div>
+              </Card>
+            </TabPane>
+            <TabPane tab="Alarmas del dispositivo" key="3">
+              {selectedDevice && startDate && endDate && alarms && alarms.length > 0 ? (
+                <AlarmTable alarms={alarms} />
+              ) : (
+                <Alert message="No existen alarmas registradas. Por favor, seleccione un dispositivo u otro intervalo de tiempo." type="info" showIcon />
+              )}
+            </TabPane>
+            <TabPane tab="Línea de tiempo" key="4">
+              <TimeLineAlarms alarms={alarms} />
+            </TabPane>
+          </Tabs>
+          <ServiceHoursRecord
+            selectedDevice={selectedDevice}
+            startDate={startDate}
+            endDate={endDate}
+            alarms={alarms}
+          />
+        </Card>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         WanWayTech © {new Date().getFullYear()}
