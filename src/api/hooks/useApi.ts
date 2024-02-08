@@ -8,7 +8,7 @@ export default function useApi() {
 
   const api = useMemo(() => {
     return axios.create({
-      baseURL: 'https://nnvxdkrd-9090.use.devtunnels.ms/api/v1',
+      baseURL: 'https://helping-tick-creative.ngrok-free.app/api/v1',
       headers: {
         Authorization: `Token ${userToken?.token as string}`,
       },
