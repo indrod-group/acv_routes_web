@@ -19,7 +19,7 @@ type LoginProps = {
 
 async function loginUser(credentials: Credentials): Promise<UserToken> {
   const response = await axios.post<UserToken>(
-    'https://helping-tick-creative.ngrok-free.app/api_generate_token/',
+    'https://1ztc8hzf-9090.use.devtunnels.ms/api_generate_token/',
     credentials
   );
   return response.data;
