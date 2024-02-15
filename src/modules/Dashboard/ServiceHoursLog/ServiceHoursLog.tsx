@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import ChartLog from './ChartLog';
 
 import { DeviceList } from './Devices';
-import { DatePicker, Card, Alert, Button, Tabs, Layout } from 'antd';
+import { DatePicker, Card, Alert, Button, Tabs, Layout, Divider, Select, InputNumber, message } from 'antd';
 import dayjs from 'dayjs';
 import { AlarmTable } from './AlarmTable';
 import { useAlarms } from '../../../api/hooks';
@@ -13,17 +13,32 @@ import ServiceHoursRecord from './ModuleForPrint';
 
 const { TabPane } = Tabs;
 const { Header, Content, Footer } = Layout;
+const { RangePicker } = DatePicker;
+const { Option } = Select;
 
 export default function ServiceHoursLogModule() {
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
-  const { alarms } = useAlarms({
+  const { alarms, fetchAlarms } = useAlarms({
     imei: selectedDevice ? selectedDevice.imei : null,
     startTime: startDate ? Math.floor(startDate.getTime() / 1000) : null,
     endTime: endDate ? Math.floor(endDate.getTime() / 1000) : null
   });
+
+  const fetchAlarmsRef = useRef(fetchAlarms);
+
+  useEffect(() => {
+    fetchAlarmsRef.current = fetchAlarms;
+  }, [fetchAlarms]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      fetchAlarmsRef.current();
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [startDate, endDate, selectedDevice]);
 
   const handleDeviceSelect = (device: Device) => {
     setSelectedDevice(device);
@@ -38,6 +53,49 @@ export default function ServiceHoursLogModule() {
     setEndDate(new Date());
     setStartDate(new Date(new Date().setHours(0, 0, 0, 0)));
   }, []);
+
+  const [operation, setOperation] = useState('addBoth');
+  const [amount, setAmount] = useState<number | null>(1);
+
+  const adjustDates = (unit: dayjs.ManipulateType) => {
+    if (!endDate || !startDate) {
+      return;
+    }
+  
+    let newStartDate = startDate;
+    let newEndDate = endDate;
+  
+    switch (operation) {
+      case 'addBoth':
+        newStartDate = dayjs(startDate).add(amount ?? 1, unit).toDate();
+        newEndDate = dayjs(endDate).add(amount ?? 1, unit).toDate();
+        break;
+      case 'addToStartDate':
+        newStartDate = dayjs(startDate).add(amount ?? 1, unit).toDate();
+        break;
+      case 'addToEndDate':
+        newEndDate = dayjs(endDate).add(amount ?? 1, unit).toDate();
+        break;
+      case 'subtractBoth':
+        newStartDate = dayjs(startDate).subtract(amount ?? 1, unit).toDate();
+        newEndDate = dayjs(endDate).subtract(amount ?? 1, unit).toDate();
+        break;
+      case 'subtractToStartDate':
+        newStartDate = dayjs(startDate).subtract(amount ?? 1, unit).toDate();
+        break;
+      case 'subtractToEndDate':
+        newEndDate = dayjs(endDate).subtract(amount ?? 1, unit).toDate();
+        break;
+    }
+  
+    if (dayjs(newStartDate).isBefore(newEndDate)) {
+      setStartDate(newStartDate);
+      setEndDate(newEndDate);
+    } else {
+      void message.warning("La fecha de inicio no puede ser mayor que la fecha de fin");
+      console.warn('La fecha de inicio no puede ser mayor que la fecha de fin');
+    }
+  };  
 
   return (
     <Layout className="site-layout">
@@ -59,26 +117,40 @@ export default function ServiceHoursLogModule() {
                 <Alert message="No hay datos que graficar." type="warning" showIcon />
               )}
               <DeviceDescription selectedDevice={selectedDevice} />
-              <Card className="p-4 print:block">
+              <Card
+               className="p-4 print:block"
+               title="Intervalo de tiempo"
+              >
                 <div className="flex space-x-4 items-center">
-                  <p>Fecha inicial:</p>
-                  <DatePicker
-                    showTime value={dayjs(startDate)}
-                    onChange={(date) => setStartDate(date ? date.toDate() : null)}
-                    onOk={(date) => setStartDate(date ? date.toDate() : null)}
-                    showNow={false}
-                    className="border p-2 rounded text-black"
-                  />
-                  <p>Fecha final:</p>
-                  <DatePicker
-                    showTime value={dayjs(endDate)}
-                    onChange={(date) => setEndDate(date ? date.toDate() : null)}
+                  <RangePicker
+                    showTime
+                    value={[dayjs(startDate), dayjs(endDate)]}
+                    onChange={(dates) => {
+                      setStartDate(dates ? (dates[0] as dayjs.Dayjs).toDate() : null);
+                      setEndDate(dates ? (dates[1] as dayjs.Dayjs).toDate() : null);
+                    }}
+                    onOk={(dates) => {
+                      setStartDate(dates ? (dates[0] as dayjs.Dayjs).toDate() : null);
+                      setEndDate(dates ? (dates[1] as dayjs.Dayjs).toDate() : null);
+                    }}
                     disabledDate={disabledDate}
-                    onOk={(date) => setEndDate(date ? date.toDate() : null)}
-                    showNow={true}
                     className="border p-2 rounded text-black"
                   />
                   <Button onClick={setEndDateToNow}>Seleccionar fecha y hora actual</Button>
+                </div>
+                <Divider className="print:hidden"></Divider>
+                <div className="flex space-x-4 items-center print:hidden">
+                  <Select defaultValue="addBoth" onChange={setOperation}>
+                    <Option value="addBoth">Sumar a ambas fechas</Option>
+                    <Option value="addToStartDate">Sumar a la fecha inicial</Option>
+                    <Option value="addToEndDate">Sumar a la fecha final</Option>
+                    <Option value="subtractBoth">Restar a ambas fechas</Option>
+                    <Option value="subtractToStartDate">Restar a la fecha inicial</Option>
+                    <Option value="subtractToEndDate">Restar a la fecha final</Option>
+                  </Select>
+                  <InputNumber min={1} defaultValue={1} onChange={setAmount} />
+                  <Button onClick={() => adjustDates('days')}>Ajustar días</Button>
+                  <Button onClick={() => adjustDates('hours')}>Ajustar horas</Button>
                 </div>
               </Card>
             </TabPane>

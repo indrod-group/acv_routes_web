@@ -52,10 +52,6 @@ function useAlarms({imei, startTime, endTime}: UseAlarmProps): { alarms: Alarm[]
     }
   }, [imei, startTime, endTime, api]);
 
-  useEffect(() => {
-    fetchAlarms();
-  }, [fetchAlarms]);
-
   return {
     alarms: alarms,
     fetchAlarms: fetchAlarms,
