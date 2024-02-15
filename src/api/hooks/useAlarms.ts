@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { message } from 'antd';
 
 import { Alarm } from '../models/Alarm';
