@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 
-import { Form, Input, Button, Layout, Card, Typography, message } from 'antd';
+import { Form, Input, Button, Layout, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import { UserToken } from '../../api/hooks/useToken'
@@ -54,7 +54,19 @@ const LoginForm: React.FC<LoginProps> = ({ setToken }) => {
       </Layout.Header>
       <Layout.Content className="content">
         <Card
-          title={<Typography.Title className='text-center'>Login</Typography.Title>}
+          title={
+            <div className="flex flex-col justify-center items-center my-4">
+              <img
+                className="text-center mx-4 transition-all duration-500 ease-in-out transform scale-100"
+                loading="lazy"
+                width="150"
+                height="400"
+                src="/indrod-cmyk.svg"
+                title="Logo"
+                alt="Logo"
+              />
+            </div>
+          }
           className="login-card mx-auto my-12 p-4 bg-white rounded shadow-md w-full max-w-xs"
         >
           <Form
