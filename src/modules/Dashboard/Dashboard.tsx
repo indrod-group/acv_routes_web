@@ -10,7 +10,6 @@ const Profile = React.lazy(() => import('./Profile/Profile'));
 const ServiceHoursLogModule = React.lazy(() => import('./ServiceHoursLog/ServiceHoursLog'));
 const RoutesComponent = React.lazy(() => import('./Routes/Routes'));
 const TreeAccount = React.lazy(() => import('./TreeAccounts/TreeAccounts'));
-const VehiclesModule = React.lazy(() => import('./Vehicles/VehiclesModule'));
 
 const Dashboard: React.FC = () => {
   return (
