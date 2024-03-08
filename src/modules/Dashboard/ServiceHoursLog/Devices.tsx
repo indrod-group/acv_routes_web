@@ -65,7 +65,7 @@ export const DeviceList = ({ onDeviceSelect }: DeviceListProps) => {
   const currentDevices = uniqueDevices.slice(startIndex, endIndex);
 
   return (
-    <Card title={"Dispositivos monitoreados"} className="flex-col space-x-4 print:block">
+    <Card title={"Dispositivos monitoreados"} className="flex-col space-x-4 print:hidden">
       <Pagination
         className="mt-4 mb-4 mx-auto content-center"
         total={uniqueDevices.length}

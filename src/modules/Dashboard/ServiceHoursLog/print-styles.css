@@ -1,0 +1,15 @@
+/* Cuando la pantalla es de al menos 640px */
+@media (min-width: 0px) {
+  .ant-btn-primary,
+  .ant-switch-inner-unchecked {
+    color: black !important;
+  }
+}
+
+/* Cuando la pantalla es de al menos 1024px */
+@media (min-width: 768px) {
+  .ant-btn-primary,
+  .ant-switch-inner-unchecked {
+    color: white !important;
+  }
+}
