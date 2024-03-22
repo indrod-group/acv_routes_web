@@ -10,6 +10,7 @@ const Profile = React.lazy(() => import('./Profile/Profile'));
 const ServiceHoursLogModule = React.lazy(() => import('./ServiceHoursLog/ServiceHoursLog'));
 const RoutesComponent = React.lazy(() => import('./Routes/Routes'));
 const TreeAccount = React.lazy(() => import('./TreeAccounts/TreeAccounts'));
+const VehiclesModule = React.lazy(() => import('./Vehicles/VehiclesModule'));
 
 const Dashboard: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const Dashboard: React.FC = () => {
           <Route path="/user-profile" element={<Profile />} />
           <Route path="/service-hours-log" element={<ServiceHoursLogModule />} />
           <Route path="/tree-accounts" element={<TreeAccount />} />
+          <Route path="/vehicles" element={<VehiclesModule />} />
         </Routes>
       </Suspense>
     </Layout >

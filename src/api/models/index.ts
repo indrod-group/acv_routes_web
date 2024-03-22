@@ -5,3 +5,5 @@ export type { Route } from './Route';
 export type { PositionPosition } from './Route';
 export type { PositionElement } from './Route';
 export type { UserProfile } from './UserProfile';
+export type { Vehicle } from './Vehicle';
+export type { VehicleType } from './VehicleType';

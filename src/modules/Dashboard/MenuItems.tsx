@@ -6,7 +6,8 @@ import {
     PieChartOutlined,
     LogoutOutlined,
     UserOutlined,
-    HeatMapOutlined
+    HeatMapOutlined,
+    CarOutlined
 } from '@ant-design/icons';
 
 export type MenuItem = Required<MenuProps>['items'][number];
@@ -26,7 +27,8 @@ const menuItems: MenuItem[] = [
     getItem('Perfil', '3', <UserOutlined />,),
     getItem('Subcuentas', '4', <UserOutlined />,),
     getItem('Bitácora', '5', <DesktopOutlined />,),
-    getItem('Cerrar sesión', '6', <LogoutOutlined />,),
+    getItem('Vehículos', '6', <CarOutlined />,),
+    getItem('Cerrar sesión', '7', <LogoutOutlined />,),
 ];
 
 export default menuItems;
