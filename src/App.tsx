@@ -3,6 +3,8 @@ import Dashboard from './modules/Dashboard/Dashboard';
 import Login from './modules/Login/Login';
 import useToken from './api/hooks/useToken';
 
+import 'antd/dist/reset.css';
+
 function App() {
   const { token, setToken } = useToken();
 
