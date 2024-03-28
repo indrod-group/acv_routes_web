@@ -48,7 +48,6 @@ const ChangePassword: React.FC = () => {
   return (
     <Card
       className="max-w-xs"
-      title="Cambiar contraseña"
     >
       <Input.Password
         placeholder="Anterior contraseña"
