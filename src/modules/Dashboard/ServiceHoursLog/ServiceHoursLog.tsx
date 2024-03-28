@@ -8,8 +8,10 @@ import { useAlarms } from '../../../api/hooks';
 import DeviceDescription from './DeviceDescription';
 import TimeLineAlarms from './TimeLine';
 import type { Device } from '../../../api/models';
-import ServiceHoursRecord from './ModuleForPrint';
 import DateRangePicker from './DateRangePicker';
+import ChangePrintableContent from './PrintableContent/ChangePrintableContent';
+import { PrintProvider } from './PrintableContent/PrintContext';
+import PrintableContent from './PrintableContent/PrintableContent';
 
 const { Header, Content, Footer } = Layout;
 
@@ -76,26 +78,29 @@ export default function ServiceHoursLogModule() {
 
   return (
     <Layout className="site-layout">
-      <Header className="flex sm:flex-row justify-between items-center print:block">
-        <h2 className="text-sm sm:text-base md:text-lg lg:text-xl text-white text-opacity-80 text-ellipsis">
-          Bitácora de horas de servicio
-        </h2>
-      </Header>
-      <Content>
-        <Card>
-          <ServiceHoursRecord
-            selectedDevice={selectedDevice}
-            startDate={startDate}
-            endDate={endDate}
-            alarms={alarms}
-          />
-          <Tabs
-            className='print:hidden'
-            defaultActiveKey="1"
-            items={items}
-          />
-        </Card>
-      </Content>
+      <PrintProvider>
+        <Header className="flex sm:flex-row justify-between items-center print:block">
+          <h2 className="text-sm sm:text-base md:text-lg lg:text-xl text-white text-opacity-80 text-ellipsis">
+            Bitácora de horas de servicio
+          </h2>
+          <ChangePrintableContent />
+        </Header>
+        <Content>
+          <Card>
+            <PrintableContent
+              startDate={startDate}
+              endDate={endDate}
+              selectedDevice={selectedDevice}
+              alarms={alarms}
+            />
+            <Tabs
+              className='print:hidden'
+              defaultActiveKey="1"
+              items={items}
+            />
+          </Card>
+        </Content>
+      </PrintProvider>
       <Footer style={{ textAlign: 'center' }}>
         WanWayTech © {new Date().getFullYear()}
       </Footer>
