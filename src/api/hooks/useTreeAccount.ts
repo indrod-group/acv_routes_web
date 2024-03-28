@@ -25,6 +25,11 @@ const useTreeAccount = (uuid: string): { treeAccounts: UserProfile | null, refre
    * If an error occurs while fetching the tree of accounts, an error message is displayed.
    */
   const fetchTreeAccounts = useCallback(() => {
+    if (!uuid) {
+      console.error('UUID no proporcionado');
+      return;
+    }
+  
     api.get(`/users/${uuid}/tree/accounts/`)
       .then(response => {
         const accounts = Convert.toUserProfile(JSON.stringify(response.data));
@@ -35,7 +40,7 @@ const useTreeAccount = (uuid: string): { treeAccounts: UserProfile | null, refre
         console.error(error);
         void message.error('Ha habido un problema obteniendo el árbol de subcuentas');
       });
-  }, [api, uuid]);
+  }, [api, uuid]);  
 
   useEffect(() => {
     fetchTreeAccounts();

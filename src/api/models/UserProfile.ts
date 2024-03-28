@@ -13,4 +13,5 @@ export type UserProfile = {
   education_level: string;
   home_address: null | string;
   photo: null | string;
+  child_accounts: null | UserProfile[];
 }

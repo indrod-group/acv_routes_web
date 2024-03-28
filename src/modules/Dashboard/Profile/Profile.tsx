@@ -3,8 +3,9 @@ import { Layout, Card, Spin } from 'antd';
 
 const { Header, Content, Footer } = Layout;
 
+const ChangePasswordModal = lazy(() => import('./ChangePasswordModal'));
 const ProfileDescriptions = lazy(() => import('./ProfileDescriptions'));
-const ChangePasswordModal = lazy(() => import('./ChangePasswordModal')); // Add this line
+const TreeAccounts = lazy(() => import('./Tree/Accounts'));
 
 const Profile: React.FC = () => {
   return (
@@ -19,14 +20,21 @@ const Profile: React.FC = () => {
           </Suspense>
         </>
       </Header>
-
-      <Content>
+      <Content className="md:flex">
         <Card
-          className="max-w-xs"
+          className="max-w-xs md:mr-4"
           title="Información del perfil"
         >
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Spin tip="Cargando datos..." />}>
             <ProfileDescriptions />
+          </Suspense>
+        </Card>
+        <Card
+          className="flex-grow mt-4 md:mt-0"
+          title="Árbol de Cuentas"
+        >
+          <Suspense fallback={<Spin tip="Cargando datos..." />}>
+            <TreeAccounts />
           </Suspense>
         </Card>
       </Content>
