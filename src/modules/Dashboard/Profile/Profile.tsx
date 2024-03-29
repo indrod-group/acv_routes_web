@@ -14,11 +14,9 @@ const Profile: React.FC = () => {
         <h2 className="text-sm sm:text-base md:text-lg lg:text-xl text-white text-opacity-80 text-ellipsis">
           Perfil
         </h2>
-        <>
-          <Suspense fallback={<Spin tip="Cargando datos..." />}>
-            <ChangePasswordModal />
-          </Suspense>
-        </>
+        <Suspense fallback={<Spin tip="Cargando datos..." />}>
+          <ChangePasswordModal />
+        </Suspense>
       </Header>
       <Content className="md:flex">
         <Card
