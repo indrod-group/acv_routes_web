@@ -36,13 +36,17 @@ import { VehicleType } from "./VehicleType";
  * @see https://example.com/api/vehicles/ for the API that returns this type.
  */
 export type Vehicle = {
-    vuid:         string;
+    vuid: string;
     vehicle_type: VehicleType;
-    device:       Device | null;
-    color:        string;
-    chassis:      string;
-    tonnage:      string;
-    plate?:       string;
-    vin?:         string;
+    device: Device | null;
+    color: string;
+    chassis: null | string;
+    tonnage: null | string;
+    plate: string;
+    vin: null | string;
+    front_photo: null | string;
+    left_side_photo: null | string;
+    right_side_photo: null | string;
+    rear_photo: null | string;
 }
 

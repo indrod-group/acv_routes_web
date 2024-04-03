@@ -4,7 +4,6 @@ import { Card, Layout, Spin, Tabs, type TabsProps } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 const VehicleList = lazy(() => import('./VehiclesList'));
-const VehicleDataCard =  lazy(() => import('./VehicleCard'));
 const TiresCard =  lazy(() => import('./TiresCard'));
 const BatteryCard =  lazy(() => import('./BatteryCard'));
 const MaintenanceHistoryCard =  lazy(() => import('./MaintenanceHistory'));
@@ -19,15 +18,6 @@ const VehiclesModule: React.FC = () => {
       children: <>
         <Suspense fallback={<Spin tip="Cargando datos..." />}>
           <VehicleList />
-        </Suspense>
-      </>
-    },
-    {
-      key: '2',
-      label: 'Detalles',
-      children: <>
-        <Suspense fallback={<Spin tip="Cargando datos..." />}>
-          <VehicleDataCard />
         </Suspense>
       </>
     },
