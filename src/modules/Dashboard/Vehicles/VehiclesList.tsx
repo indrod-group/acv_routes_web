@@ -123,20 +123,24 @@ const VehiclePhotos: React.FC<VehiclePhotosProps> = ({ item }) => {
       {photos.length > 0 ? (
         <Carousel
           autoplay
-          lazyLoad='progressive'
           swipeToSlide
-          dots
+          lazyLoad='progressive'
         >
           {photos.map((photo, index) => (
-            <Image.PreviewGroup key={index} items={photos}>
-              <Image src={photo} />
+            <Image.PreviewGroup key={`${index}-${photo}`} items={photos}>
+              <Image
+                src={photo}
+                width={480}
+                alt={`${index}-${photo}`}
+              />
             </Image.PreviewGroup>
           ))}
         </Carousel>
-      ) : <Skeleton.Image active />}
+      ) : <Skeleton.Image className='mb-2' active />}
     </>
   );
 };
+
 
 const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
   const [visible, setVisible] = useState(false);
@@ -172,9 +176,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <div className='flex flex-row items-center justify-center mb-4'>
-          <VehiclePhotos item={item} />
-        </div>
+        <VehiclePhotos item={item} />
         <VehicleDescription item={item} />
       </Modal>
     </>
