@@ -2,8 +2,6 @@ import React from 'react';
 import { DatePicker, Button } from 'antd';
 import dayjs from 'dayjs';
 
-import './styles.css';
-
 const { RangePicker } = DatePicker;
 
 type DateRangePickerProps = {

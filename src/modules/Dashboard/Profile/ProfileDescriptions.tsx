@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions } from 'antd';
+import { Avatar, Descriptions } from 'antd';
 import type { DescriptionsProps } from 'antd';
 
 import { useProfile } from '../../../api/hooks';
@@ -38,14 +38,47 @@ const ProfileDescriptions: React.FC = () => {
       label: 'Roles',
       children: <p>{userProfile.roles.join(', ')}</p>,
     },
+    {
+      key: '7',
+      label: 'Cuentas Principales',
+      children: <p>{userProfile?.parent_accounts.join(', ')}</p>,
+    },
+    {
+      key: '8',
+      label: 'Fecha de Nacimiento',
+      children: <p>{userProfile.birth_date ? (() => {
+        const dateParts = userProfile.birth_date.split('-').map(part => parseInt(part, 10));
+        return new Date(Date.UTC(dateParts[0], dateParts[1] - 1, dateParts[2] + 1)).toLocaleDateString();
+      })() : 'No disponible'}</p>,
+    },
+    {
+      key: '9',
+      label: 'Estado Civil',
+      children: <p>{userProfile?.marital_status}</p>,
+    },
+    {
+      key: '10',
+      label: 'Nivel de Educación',
+      children: <p>{userProfile.education_level}</p>,
+    },
+    {
+      key: '11',
+      label: 'Dirección de Casa',
+      children: <p>{userProfile?.home_address}</p>,
+    },
   ] : [];
 
   return (
-    <Descriptions
-      column={1}
-      title="Datos Personales"
-      items={items}
-    />
+    <>
+      <div className="flex justify-center items-center mb-2">
+        <Avatar src={userProfile?.photo || undefined} size={128} />
+      </div>      <Descriptions
+        column={1}
+        title="Datos Personales"
+        items={items}
+      />
+    </>
+
   );
 }
 

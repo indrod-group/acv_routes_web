@@ -5,8 +5,6 @@ import ChartLog from "./ChartLog";
 import DeviceDescription from "./DeviceDescription";
 import TimeLineAlarms from "./TimeLine";
 
-import './print-styles.css';
-
 interface ModuleForPrintProps {
   selectedDevice: Device | null;
   startDate: Date | null;

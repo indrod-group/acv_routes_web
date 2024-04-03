@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Tree, Modal, Form, Input } from 'antd';
 
-import { useTreeAccount, useProfile } from '../../../api/hooks';
-import type { UserProfile } from '../../../api/models';
+import { useTreeAccount, useProfile } from '../../../../api/hooks';
+import type { UserProfile } from '../../../../api/models';
 
 interface DataNode {
   title: string;
@@ -12,7 +12,7 @@ interface DataNode {
 }
 
 const userProfileToDataNode = (userProfile: UserProfile): DataNode => ({
-  title: userProfile.first_name + ' ' + userProfile.last_name,
+  title: userProfile.first_name + ' ' + (userProfile.last_name || ''),
   key: userProfile.uuid,
   children: userProfile.child_accounts ? userProfile.child_accounts.map(userProfileToDataNode) : undefined,
 });
