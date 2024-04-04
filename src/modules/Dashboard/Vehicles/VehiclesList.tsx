@@ -183,6 +183,19 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
   );
 };
 
+interface VehiclePaginationSpanProps {
+  total: number;
+  range: [number, number];
+}
+
+const VehiclePaginationSpan: React.FC<VehiclePaginationSpanProps> = ({ total, range }) => {
+  return (
+    <span className="px-2 py-1">
+      Mostrando {range[0]} - {range[1]} de {total} vehículos
+    </span>
+  );
+}
+
 const VehicleList: React.FC = () => {
   const { vehicles } = useVehicles();
 
@@ -211,11 +224,7 @@ const VehicleList: React.FC = () => {
         onChange={handlePageChange}
         defaultPageSize={itemsPerPage}
         showSizeChanger
-        showTotal={(total, range) => (
-          <span className="px-2 py-1">
-            Mostrando {range[0]} - {range[1]} de {total} vehículos
-          </span>
-        )}
+        showTotal={(total, range) => <VehiclePaginationSpan total={total} range={range}/>}
       />
       <List
         bordered
