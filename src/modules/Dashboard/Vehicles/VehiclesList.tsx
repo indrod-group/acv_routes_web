@@ -3,6 +3,8 @@ import { List, Pagination, ColorPicker, DescriptionsProps, Descriptions, Modal, 
 import { CarOutlined } from '@ant-design/icons';
 import { useVehicles } from '../../../api/hooks';
 import { Vehicle } from '../../../api/models';
+import { VehicleProvider } from './VehicleContext';
+import { useVehicleContext } from './useVehicleContext';
 
 interface VehicleCardProps {
   item: Vehicle;
@@ -144,6 +146,7 @@ const VehiclePhotos: React.FC<VehiclePhotosProps> = ({ item }) => {
 
 const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
   const [visible, setVisible] = useState(false);
+  const { selectedVehicle, setSelectedVehicle } = useVehicleContext();
 
   const showModal = () => {
     setVisible(true);
@@ -157,8 +160,13 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
     setVisible(false);
   };
 
+  const handleItemClick = (vehicle: Vehicle) => {
+    setSelectedVehicle(vehicle);
+  };
+
   return (
-    <>
+    <List.Item
+      className={`cursor-pointer ${selectedVehicle?.vuid == item.vuid ? 'bg-blue-200' : ''}`} onClick={() => handleItemClick(item)}>
       <List.Item.Meta
         avatar={<CarOutlined />}
         className='w-full'
@@ -179,7 +187,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
         <VehiclePhotos item={item} />
         <VehicleDescription item={item} />
       </Modal>
-    </>
+    </List.Item>
   );
 };
 
@@ -198,7 +206,6 @@ const VehiclePaginationSpan: React.FC<VehiclePaginationSpanProps> = ({ total, ra
 
 const VehicleList: React.FC = () => {
   const { vehicles } = useVehicles();
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -216,28 +223,31 @@ const VehicleList: React.FC = () => {
   }));
 
   return (
-    <>
-      <Pagination
-        className="mt-4 mb-4 mx-auto"
-        total={vehicles.length}
-        current={currentPage}
-        onChange={handlePageChange}
-        defaultPageSize={itemsPerPage}
-        showSizeChanger
-        showTotal={(total, range) => <VehiclePaginationSpan total={total} range={range}/>}
-      />
+    <VehicleProvider>
       <List
         bordered
+        header={
+          <>
+            <h2 className='flex justify-center items-center'>Lista de vehículos</h2>
+            <Pagination
+              className="mt-4 mb-4 mx-auto"
+              total={vehicles.length}
+              current={currentPage}
+              onChange={handlePageChange}
+              defaultPageSize={itemsPerPage}
+              showSizeChanger
+              showTotal={(total, range) => <VehiclePaginationSpan total={total} range={range} />}
+            />
+          </>
+        }
         itemLayout="horizontal"
         dataSource={currentVehicles}
         pagination={false}
         renderItem={item => (
-          <List.Item>
-            <VehicleCard item={item as Vehicle} />
-          </List.Item>
+          <VehicleCard item={item as Vehicle} />
         )}
       />
-    </>
+    </VehicleProvider>
   );
 };
 
