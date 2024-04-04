@@ -3,7 +3,6 @@ import { List, Pagination, ColorPicker, DescriptionsProps, Descriptions, Modal, 
 import { CarOutlined } from '@ant-design/icons';
 import { useVehicles } from '../../../api/hooks';
 import { Vehicle } from '../../../api/models';
-import { VehicleProvider } from './VehicleContext';
 import { useVehicleContext } from './useVehicleContext';
 
 interface VehicleCardProps {
@@ -223,7 +222,7 @@ const VehicleList: React.FC = () => {
   }));
 
   return (
-    <VehicleProvider>
+    <>
       <List
         bordered
         header={
@@ -247,7 +246,7 @@ const VehicleList: React.FC = () => {
           <VehicleCard item={item as Vehicle} />
         )}
       />
-    </VehicleProvider>
+    </>
   );
 };
 

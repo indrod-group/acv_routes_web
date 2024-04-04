@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 
 import SidebarMenu from './MenuSidebar';
 import LoadingComponent from './LoadingComponent';
+import { VehicleProvider } from './Vehicles/VehicleContext';
 
 const JourneyTracker = React.lazy(() => import('./VehicleRoutes/JourneyTracker'));
 const Profile = React.lazy(() => import('./Profile/Profile'));
@@ -14,14 +15,18 @@ const VehiclesModule = React.lazy(() => import('./Vehicles/VehiclesModule'));
 const Dashboard: React.FC = () => {
   return (
     <Layout className='w-auto min-h-screen' hasSider>
-      <SidebarMenu/>
+      <SidebarMenu />
       <Suspense fallback={<LoadingComponent />}>
         <Routes>
           <Route path="/journey-tracker" element={<JourneyTracker />} />
           <Route path="/routes" element={<RoutesComponent />} />
           <Route path="/user-profile" element={<Profile />} />
           <Route path="/service-hours-log" element={<ServiceHoursLogModule />} />
-          <Route path="/vehicles" element={<VehiclesModule />} />
+          <Route path="/vehicles" element={
+            <VehicleProvider>
+              <VehiclesModule />
+            </VehicleProvider>
+          } />
         </Routes>
       </Suspense>
     </Layout >
