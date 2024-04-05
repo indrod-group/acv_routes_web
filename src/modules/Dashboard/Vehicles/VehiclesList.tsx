@@ -222,31 +222,29 @@ const VehicleList: React.FC = () => {
   }));
 
   return (
-    <>
-      <List
-        bordered
-        header={
-          <>
-            <h2 className='flex justify-center items-center'>Lista de vehículos</h2>
-            <Pagination
-              className="mt-4 mb-4 mx-auto"
-              total={vehicles.length}
-              current={currentPage}
-              onChange={handlePageChange}
-              defaultPageSize={itemsPerPage}
-              showSizeChanger
-              showTotal={(total, range) => <VehiclePaginationSpan total={total} range={range} />}
-            />
-          </>
-        }
-        itemLayout="horizontal"
-        dataSource={currentVehicles}
-        pagination={false}
-        renderItem={item => (
-          <VehicleCard item={item as Vehicle} />
-        )}
-      />
-    </>
+    <List
+      bordered
+      header={
+        <>
+          <h2 className='flex justify-center items-center'>Lista de vehículos</h2>
+          <Pagination
+            className="mt-4 mb-4 mx-auto"
+            total={vehicles.length}
+            current={currentPage}
+            onChange={handlePageChange}
+            defaultPageSize={itemsPerPage}
+            showSizeChanger
+            showTotal={(total, range) => <VehiclePaginationSpan total={total} range={range} />}
+          />
+        </>
+      }
+      itemLayout="horizontal"
+      dataSource={currentVehicles}
+      pagination={false}
+      renderItem={item => (
+        <VehicleCard item={item as Vehicle} />
+      )}
+    />
   );
 };
 

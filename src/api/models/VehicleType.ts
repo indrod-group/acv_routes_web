@@ -23,6 +23,7 @@
  * @see https://example.com/api/vehicles/ for the API that returns this type.
  */
 export type VehicleType = {
+    id:              number;
     year:            number;
     brand:           string;
     model:           string;

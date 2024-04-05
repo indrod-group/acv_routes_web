@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Card, Layout, Spin, Tabs, type TabsProps } from 'antd';
+import VehicleManualComponent from './Manuals/ManualView';
 
 const { Header, Content, Footer } = Layout;
 
@@ -15,47 +16,50 @@ const VehiclesModule: React.FC = () => {
     {
       key: '1',
       label: 'Mis vehículos',
-      children: <>
+      children:
         <Suspense fallback={<Spin tip="Cargando datos..." />}>
           <VehicleList />
         </Suspense>
-      </>
+    },
+    {
+      key: '2',
+      label: 'Manual de mantenimiento',
+      children: 
+        <Suspense fallback={<Spin tip="Cargando datos..." />}>
+          <VehicleManualComponent />
+        </Suspense>
     },
     {
       key: '3',
       label: 'Llantas',
-      children: <>
+      children:
         <Suspense fallback={<Spin tip="Cargando datos..." />}>
           <TiresCard />
         </Suspense>
-      </>
     },
     {
       key: '4',
       label: 'Baterías',
-      children: <>
+      children:
         <Suspense fallback={<Spin tip="Cargando datos..." />}>
           <BatteryCard />
         </Suspense>
-      </>
     },
     {
       key: '5',
       label: 'Historial de mantenimiento',
-      children: <>
+      children:
         <Suspense fallback={<Spin tip="Cargando datos..." />}>
           <MaintenanceHistoryCard />
         </Suspense>
-      </>
     },
     {
       key: '6',
       label: 'Órdenes de movimiento',
-      children: <>
+      children: 
         <Suspense fallback={<Spin tip="Cargando datos..." />}>
           <MovementOrdersCard />
         </Suspense>
-      </>
     },
   ]
 
