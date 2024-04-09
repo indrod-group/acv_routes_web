@@ -1,7 +1,8 @@
 export type { Alarm } from './Alarm';
 export type { AlarmCodeType } from './AlarmCodes';
 export type { Device } from './Device';
-export type { Manual, Frequency, ManualTask, Task, TaskDetails, TASK_DETAILS } from './Manual';
+export type { Manual, Frequency, ManualTask, Task, TaskDetails } from './Manual';
+export { TASK_DETAILS } from './Manual';
 export type { Route } from './Route';
 export type { PositionPosition } from './Route';
 export type { PositionElement } from './Route';
