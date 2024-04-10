@@ -1,9 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Card, Pagination, Popover, Table } from 'antd';
 import { useVehicleManual } from '../../../../api/hooks';
 import { Frequency, ManualTask, TASK_DETAILS } from '../../../../api/models';
-import { AnyObject } from 'antd/es/_util/type';
-import { ColumnGroupType, ColumnType } from 'antd/es/table';
 
 interface ManualPaginationSpanProps {
   total: number;
@@ -68,36 +66,6 @@ const checkIfATaskForNow = (frecuency: Frequency, currentValue: number | null, r
   return (currentValue * rep) % firstDistance.number === 0;
 }
 
-const createColumns = (columns:  (ColumnGroupType<AnyObject|ManualTask> | ColumnType<AnyObject|ManualTask>)[], values: FrequencyValue[] | null, minValues: FrequencyValue[] | null) => {
-  if (values != null && minValues != null) {
-    const [firstDistance]: FrequencyValue[] = values;
-    const [minFirstDistance, minSecondDistance, ]: FrequencyValue[] = minValues;
-    if (minFirstDistance.number != null && minFirstDistance.unit != null && firstDistance.number != null && minSecondDistance.number != null && minSecondDistance.unit != null) {
-      const repetitions = firstDistance.number / minFirstDistance.number;
-      for (let r = 1; r <= repetitions; r++) {
-        columns.push(
-          {
-            title: `${minFirstDistance.number * r}${minFirstDistance.unit} / ${minSecondDistance.number * r}${minSecondDistance.unit}`,
-            dataIndex: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
-            key: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
-            render: (_: string, record: ManualTask) => (
-              checkIfATaskForNow(record.frequency as Frequency, minFirstDistance.number, r) ? (
-                <Popover content={TASK_DETAILS[record.task]} title="Ayuda">
-                  <span>{record.task}</span>
-                </Popover>
-              ) : (
-                <p></p>
-              )
-            ) as ReactNode,            
-          },
-        )
-      }
-    }
-  }
-
-  return columns;
-}
-
 const VehicleManualComponent: React.FC = () => {
   const { manual, getManual } = useVehicleManual();
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -120,7 +88,7 @@ const VehicleManualComponent: React.FC = () => {
     ...tasks, key: tasks.id
   }));
 
-  const baseColumns = React.useMemo(() => ([
+  const columns = [
     {
       title: 'Sistema',
       dataIndex: 'system',
@@ -141,11 +109,35 @@ const VehicleManualComponent: React.FC = () => {
         </Popover>
       ),
     },
-  ]), []);
+  ];
 
   const values = getValuesFromIntervals(manual?.end_of_cycle as Frequency);
   const minValues = getValuesFromIntervals(manual?.minimum_frequency as Frequency);
-  const columns = React.useMemo(() => createColumns(baseColumns, values, minValues), [baseColumns, values, minValues]);
+  if (values != null && minValues != null) {
+    const [firstDistance]: FrequencyValue[] = values;
+    const [minFirstDistance, minSecondDistance, ]: FrequencyValue[] = minValues;
+    if (minFirstDistance.number != null && minFirstDistance.unit != null && firstDistance.number != null && minSecondDistance.number != null && minSecondDistance.unit != null) {
+      const repetitions = firstDistance.number / minFirstDistance.number;
+      for (let r = 1; r <= repetitions; r++) {
+        columns.push(
+          {
+            title: `${minFirstDistance.number * r}${minFirstDistance.unit} / ${minSecondDistance.number * r}${minSecondDistance.unit}`,
+            dataIndex: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
+            key: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
+            render: (_: string, record: ManualTask) => (
+              checkIfATaskForNow(record.frequency as Frequency, minFirstDistance.number, r) ? (
+                <Popover content={TASK_DETAILS[record.task]} title="Ayuda">
+                  <span>{record.task}</span>
+                </Popover>
+              ) : (
+                <p></p>
+              )
+            ),            
+          },
+        )
+      }
+    }
+  }
 
   return (
     <div>
