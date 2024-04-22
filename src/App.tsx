@@ -4,6 +4,7 @@ import Login from './modules/Login/Login';
 import useToken from './api/hooks/useToken';
 
 import 'antd/dist/reset.css';
+import NotFoundPage from './modules/Dashboard/NotFoundPage';
 
 function App() {
   const { token, setToken } = useToken();
@@ -19,6 +20,7 @@ function App() {
               <Route path="/dashboard/*" element={<Dashboard />} />
             </>
           )}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </>
