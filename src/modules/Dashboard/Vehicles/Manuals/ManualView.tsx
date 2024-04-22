@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Pagination, Popover, Table } from 'antd';
 import { useVehicleManual } from '../../../../api/hooks';
 import { Frequency, ManualTask, TASK_DETAILS } from '../../../../api/models';
+import { SortOrder } from 'antd/es/table/interface';
 
 interface ManualPaginationSpanProps {
   total: number;
@@ -93,23 +94,29 @@ const VehicleManualComponent: React.FC = () => {
       title: 'Sistema',
       dataIndex: 'system',
       key: 'system',
+      sorter: (a: ManualTask, b: ManualTask) => a.system.localeCompare(b.system),
+      sortDirections: ['descend', 'ascend'] as SortOrder[],
     },
     {
       title: 'Subsistema',
       dataIndex: 'subsystem',
       key: 'subsystem',
+      sorter: (a: ManualTask, b: ManualTask) => a.subsystem.localeCompare(b.subsystem),
+      sortDirections: ['descend', 'ascend'] as SortOrder[],
     },
     {
       title: 'Descripción',
       dataIndex: 'description',
       key: 'description',
+      sorter: (a: ManualTask, b: ManualTask) => a.description.localeCompare(b.description),
+      sortDirections: ['descend', 'ascend'] as SortOrder[],
       render: (text: string, record: ManualTask) => (
         <Popover content={record.help_me} title="Ayuda">
           <span>{text}</span>
         </Popover>
       ),
     },
-  ];
+  ];  
 
   const values = getValuesFromIntervals(manual?.end_of_cycle as Frequency);
   const minValues = getValuesFromIntervals(manual?.minimum_frequency as Frequency);
@@ -121,7 +128,7 @@ const VehicleManualComponent: React.FC = () => {
       for (let r = 1; r <= repetitions; r++) {
         columns.push(
           {
-            title: `${minFirstDistance.number * r}${minFirstDistance.unit} / ${minSecondDistance.number * r}${minSecondDistance.unit}`,
+            title: `${minFirstDistance.number * r}${minFirstDistance.unit}\n${minSecondDistance.number * r}${minSecondDistance.unit}`,
             dataIndex: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
             key: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
             render: (_: string, record: ManualTask) => (
@@ -132,7 +139,9 @@ const VehicleManualComponent: React.FC = () => {
               ) : (
                 <p></p>
               )
-            ),            
+            ),
+            sorter: () => 0, // No sorting for this column
+            sortDirections: [], // No sort directions for this column
           },
         )
       }
@@ -162,6 +171,8 @@ const VehicleManualComponent: React.FC = () => {
             columns={columns}
             dataSource={currentTasks}
             rowKey="id"
+            bordered
+            size='small'
           />
         </>
       ) : (
