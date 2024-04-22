@@ -5,10 +5,10 @@ import VehicleManualComponent from './Manuals/ManualView';
 const { Header, Content, Footer } = Layout;
 
 const VehicleList = lazy(() => import('./VehiclesList'));
-const TiresCard =  lazy(() => import('./TiresCard'));
-const BatteryCard =  lazy(() => import('./BatteryCard'));
-const MaintenanceHistoryCard =  lazy(() => import('./MaintenanceHistory'));
-const MovementOrdersCard =  lazy(() => import('./MovementsOrders'));
+//const TiresCard =  lazy(() => import('./TiresCard'));
+//const BatteryCard =  lazy(() => import('./BatteryCard'));
+//const MaintenanceHistoryCard =  lazy(() => import('./MaintenanceHistory'));
+//const MovementOrdersCard =  lazy(() => import('./MovementsOrders'));
 
 const VehiclesModule: React.FC = () => {
 
@@ -29,6 +29,7 @@ const VehiclesModule: React.FC = () => {
           <VehicleManualComponent />
         </Suspense>
     },
+    /* 
     {
       key: '3',
       label: 'Llantas',
@@ -60,7 +61,7 @@ const VehiclesModule: React.FC = () => {
         <Suspense fallback={<Spin tip="Cargando datos..." />}>
           <MovementOrdersCard />
         </Suspense>
-    },
+    },*/
   ]
 
   return (

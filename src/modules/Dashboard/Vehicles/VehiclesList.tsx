@@ -174,7 +174,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
       >
       </List.Item.Meta>
       <Button type="link" onClick={showModal}>
-        Editar
+        Mostrar
       </Button>
       <Modal
         className='w-full'
