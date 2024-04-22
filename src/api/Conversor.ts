@@ -2,6 +2,7 @@ import type { UserProfile } from "./models/UserProfile";
 import type { Alarm } from "./models/Alarm";
 import type { Device } from "./models/Device";
 import { Route } from "./models/Route";
+import { Manual, Vehicle } from "./models";
 
 /**
  * A utility class that provides methods to convert between JSON strings and TypeScript objects.
@@ -79,4 +80,22 @@ export class Convert {
   public static routesToJson(value: Route[]): string {
     return JSON.stringify(value);
   }
+
+  /**
+   * Converts a JSON string to an array of Vehicles objects.
+   * @param json - The JSON string to convert.
+   * @returns The array of Route objects from the parsed JSON string.
+   */
+  public static toVehicles(json: string): Vehicle[] {
+    return JSON.parse(json) as Vehicle[];
+  }
+
+  public static toManual(json: string): Manual[] {
+    return JSON.parse(json) as Manual[];
+  }
+
+  public static manualToJson(value: Manual[]): string {
+    return JSON.stringify(value);
+  }
+
 }
