@@ -3,6 +3,7 @@ import { Card, Pagination, Popover, Table } from 'antd';
 import { useVehicleManual } from '../../../../api/hooks';
 import { Frequency, ManualTask, TASK_DETAILS } from '../../../../api/models';
 import { SortOrder } from 'antd/es/table/interface';
+import { FixedType } from 'rc-table/lib/interface';
 
 interface ManualPaginationSpanProps {
   total: number;
@@ -94,6 +95,7 @@ const VehicleManualComponent: React.FC = () => {
       title: 'Sistema',
       dataIndex: 'system',
       key: 'system',
+      fixed: 'left' as FixedType,
       sorter: (a: ManualTask, b: ManualTask) => a.system.localeCompare(b.system),
       sortDirections: ['descend', 'ascend'] as SortOrder[],
     },
@@ -101,6 +103,7 @@ const VehicleManualComponent: React.FC = () => {
       title: 'Subsistema',
       dataIndex: 'subsystem',
       key: 'subsystem',
+      fixed: false as FixedType,
       sorter: (a: ManualTask, b: ManualTask) => a.subsystem.localeCompare(b.subsystem),
       sortDirections: ['descend', 'ascend'] as SortOrder[],
     },
@@ -108,6 +111,7 @@ const VehicleManualComponent: React.FC = () => {
       title: 'Descripción',
       dataIndex: 'description',
       key: 'description',
+      fixed: false as FixedType,
       sorter: (a: ManualTask, b: ManualTask) => a.description.localeCompare(b.description),
       sortDirections: ['descend', 'ascend'] as SortOrder[],
       render: (text: string, record: ManualTask) => (
@@ -128,18 +132,21 @@ const VehicleManualComponent: React.FC = () => {
       for (let r = 1; r <= repetitions; r++) {
         columns.push(
           {
-            title: `${minFirstDistance.number * r}${minFirstDistance.unit}\n${minSecondDistance.number * r}${minSecondDistance.unit}`,
+            title: `${minFirstDistance.number * r} ${minFirstDistance.unit}\n${minSecondDistance.number * r} ${minSecondDistance.unit}`,
             dataIndex: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
             key: `${minFirstDistance.number * r}${minFirstDistance.unit}`,
             render: (_: string, record: ManualTask) => (
               checkIfATaskForNow(record.frequency as Frequency, minFirstDistance.number, r) ? (
-                <Popover content={TASK_DETAILS[record.task]} title="Ayuda">
+                <Popover content={TASK_DETAILS[record.task]} title="Tarea">
                   <span>{record.task}</span>
                 </Popover>
               ) : (
-                <p></p>
+                <Popover content="No hay tareas asignadas" title="Tarea">
+                  <p></p>
+                </Popover>
               )
             ),
+            fixed: r === repetitions ? "right" : false as FixedType,
             sorter: () => 0, // No sorting for this column
             sortDirections: [], // No sort directions for this column
           },
@@ -173,6 +180,7 @@ const VehicleManualComponent: React.FC = () => {
             rowKey="id"
             bordered
             size='small'
+            scroll={{ x: 2400, y: 300 }}
           />
         </>
       ) : (
