@@ -3,6 +3,7 @@ import { Table, Card, Pagination } from 'antd';
 import { useDevices } from '../../../api/hooks';
 import { censoreIMEI, formatName } from './ChartUtils';
 import type { Device } from '../../../api/models';
+import { SortOrder } from 'antd/es/table/interface';
 
 interface DeviceListProps {
   onDeviceSelect: (device: Device) => void;
@@ -13,30 +14,40 @@ const columns = [
     title: 'IMEI',
     dataIndex: 'imei',
     key: 'imei',
+    sorter: (a: Device, b: Device) => a.imei.localeCompare(b.imei),
+    sortDirections: ['descend', 'ascend'] as SortOrder[],
     render: (imei: string) => censoreIMEI(imei)
   },
   {
     title: 'Nombre de usuario',
     dataIndex: 'user_name',
     key: 'user_name',
+    sorter: (a: Device, b: Device) => a.user_name.localeCompare(b.user_name),
+    sortDirections: ['descend', 'ascend']  as SortOrder[],
     render: (name: string) => formatName(name)
   },
   {
     title: 'Propietario',
     dataIndex: 'car_owner',
     key: 'car_owner',
+    sorter: (a: Device, b: Device) => (a.car_owner ?? "").localeCompare(b.car_owner ?? ""),
+    sortDirections: ['descend', 'ascend']  as SortOrder[],
     render: (name: string) => formatName(name) || 'N/A'
   },
   {
     title: 'Número de licencia',
     dataIndex: 'license_number',
     key: 'license_number',
+    sorter: (a: Device, b: Device) => (a.license_number ?? "").localeCompare(b.license_number ?? ""),
+    sortDirections: ['descend', 'ascend']  as SortOrder[],
     render: (license: string) => license || 'N/A'
   },
   {
     title: 'VIN',
     dataIndex: 'vin',
     key: 'vin',
+    sorter: (a: Device, b: Device) => (a.vin ?? "").localeCompare(b.vin ?? ""),
+    sortDirections: ['descend', 'ascend']  as SortOrder[],
     render: (vin: string) => vin || 'N/A'
   }
 ];
