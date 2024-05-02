@@ -22,8 +22,8 @@ function getItem(
 }
 
 const menuItems: MenuItem[] = [
-    getItem('Rutas de viaje', '1', <PieChartOutlined />,),
-    getItem('Rutas', '2', <HeatMapOutlined />,),
+//    getItem('Rutas de viaje', '1', <PieChartOutlined />,),
+//    getItem('Rutas', '2', <HeatMapOutlined />,),
     getItem('Perfil', '3', <UserOutlined />,),
     getItem('Bitácora', '5', <DesktopOutlined />,),
     getItem('Vehículos', '6', <CarOutlined />,),

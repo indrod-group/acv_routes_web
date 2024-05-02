@@ -3,8 +3,8 @@ import Cookies from 'js-cookie';
 
 // TODO: Move this to a config file
 const routes: Record<string, string> = {
-  '1': '/dashboard/journey-tracker',
-  '2': '/dashboard/routes',
+  //'1': '/dashboard/journey-tracker',
+  //'2': '/dashboard/routes',
   '3': '/dashboard/user-profile',
   '5': '/dashboard/service-hours-log',
   '6': '/dashboard/vehicles',

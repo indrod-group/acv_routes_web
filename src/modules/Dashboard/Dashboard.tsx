@@ -6,10 +6,8 @@ import SidebarMenu from './MenuSidebar';
 import LoadingComponent from './LoadingComponent';
 import { VehicleProvider } from './Vehicles/VehicleContext';
 
-const JourneyTracker = React.lazy(() => import('./VehicleRoutes/JourneyTracker'));
 const Profile = React.lazy(() => import('./Profile/Profile'));
 const ServiceHoursLogModule = React.lazy(() => import('./ServiceHoursLog/ServiceHoursLog'));
-const RoutesComponent = React.lazy(() => import('./Routes/Routes'));
 const VehiclesModule = React.lazy(() => import('./Vehicles/VehiclesModule'));
 
 const Dashboard: React.FC = () => {
@@ -18,8 +16,6 @@ const Dashboard: React.FC = () => {
       <SidebarMenu />
       <Suspense fallback={<LoadingComponent />}>
         <Routes>
-          <Route path="/journey-tracker" element={<JourneyTracker />} />
-          <Route path="/routes" element={<RoutesComponent />} />
           <Route path="/user-profile" element={<Profile />} />
           <Route path="/service-hours-log" element={<ServiceHoursLogModule />} />
           <Route path="/vehicles" element={
