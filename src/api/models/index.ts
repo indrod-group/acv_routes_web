@@ -1,3 +1,4 @@
+export type { Advertisement } from './Advertisement';
 export type { Alarm } from './Alarm';
 export type { AlarmCodeType } from './AlarmCodes';
 export type { Device } from './Device';
