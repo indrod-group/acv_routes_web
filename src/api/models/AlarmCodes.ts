@@ -67,5 +67,15 @@ export const AlarmCode: AlarmCodeType = Object.freeze({
   MULTIPLAYER: "Alarma de jugador múltiple",
   OPENCOVER: "Alarma de tapa abierta",
   POWERON: "Alarma de encendido",
-  POWEROFF: "Alarma de apagado"
+  POWEROFF: "Alarma de apagado",
+  MAGNETISM: "Detección de campos magnéticos",
+  BLUETOOTH: "Bluetooth",
+  UNKNOWN:  "UNKNOWN",
+  DRIVING:  "Conduciendo",
+  DRIVING_BY_ME: "Conduciendo según yo",
+  STOPPED: "Detenido",
+  STOPPED_BY_ME: "Detenido según yo",
+  AUXILIARY_ACTIVITIES: "Actividades Auxiliares",
+  SLEEPING: "Descanso",
+  EXCEPTIONAL_CASES:  "Casos excepcionales",
 });
