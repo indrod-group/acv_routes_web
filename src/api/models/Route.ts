@@ -3,11 +3,11 @@
  */
 export type Route = {
     /** The unique identifier of the route. */
-    id: number;
+    id: string;
 
     /** The name of the route. */
     name: string;
-
+    description: string;
     /** An array of positions that make up the route. */
     positions: PositionElement[];
 }
@@ -18,18 +18,12 @@ export type Route = {
 export type PositionElement = {
     /** The unique identifier of the position element. */
     id: number;
-
+    alias: string;
     /** The position data. */
     position: PositionPosition;
 
     /** The order of the position in the route. */
     order: number;
-
-    /** The distance of the position. Currently not used (null). */
-    distance: number | null;
-
-    /** The estimated time to reach the position. Currently not used (null). */
-    estimated_time: string | null;
 }
 
 /**

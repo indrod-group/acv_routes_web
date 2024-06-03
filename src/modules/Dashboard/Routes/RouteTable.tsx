@@ -18,6 +18,9 @@ const getDataRoute = (routePositions: Route[] | undefined) => {
 }
 
 function titleCase(str: string) {
+  if(str == null) {
+    return str;
+  }
   return str.toLowerCase().split(' ').map(function (word) {
     return word.replace(word[0], word[0].toUpperCase());
   }).join(' ');

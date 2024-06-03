@@ -26,7 +26,7 @@ function useRoutePositions(): { routePositions: Route[] | undefined, refreshRout
       console.error('No user profile UUID found');
       return;
     }
-    api.get(`/user-routes/${userProfile.uuid}/`)
+    api.get(`/users/${userProfile.uuid}/routes/`)
       .then(response => {
         setRoutePositions(Convert.toRoutes(JSON.stringify(response.data)));
         void message.info("Las rutas y sus posiciones se han obtenido correctamente.");
