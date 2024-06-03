@@ -2,7 +2,6 @@ import React from 'react';
 import { Table, Alert } from 'antd';
 import { PositionElement } from '../../../api/models';
 
-import { formatEstimatedTime, formatDistance } from './RouteUtils';
 import RouteSummary from './RouteSummary';
 
 type PositionTableProps = {
@@ -26,17 +25,7 @@ const positionColumns = [
   {
     title: 'Longitud',
     dataIndex: 'lng',
-  },
-  {
-    title: 'Distancia',
-    dataIndex: 'distance',
-    render: (distance: number | null) => distance != null ? formatDistance(distance) : 'N/A',
-  },
-  {
-    title: 'Tiempo Estimado',
-    dataIndex: 'estimated_time',
-    render: (time: string | null) => time != null ? formatEstimatedTime(time) : 'N/A',
-  },
+  }
 ];
 
 const getPositionData = (positions: PositionElement[] | undefined) => {
@@ -51,8 +40,6 @@ const getPositionData = (positions: PositionElement[] | undefined) => {
     order: position.order,
     lat: position.position.lat,
     lng: position.position.lng,
-    distance: position.distance,
-    estimated_time: position.estimated_time,
   }))
 }
 
