@@ -9,3 +9,4 @@ export { default as useRoutePositions } from './useRoutePositions';
 export { default as useToken } from './useToken';
 export { default as useTreeAccount } from './useTreeAccount';
 export { default as useVehicles } from './useVehicles';
+export { default as useLicenses } from './useLicenses';

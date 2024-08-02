@@ -10,3 +10,4 @@ export type { PositionElement } from './Route';
 export type { UserProfile } from './UserProfile';
 export type { Vehicle } from './Vehicle';
 export type { VehicleType } from './VehicleType';
+export type { License } from './License';

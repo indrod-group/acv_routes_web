@@ -6,6 +6,7 @@ const { Header, Content, Footer } = Layout;
 const ChangePasswordModal = lazy(() => import('./ChangePasswordModal'));
 const ProfileDescriptions = lazy(() => import('./ProfileDescriptions'));
 const TreeAccounts = lazy(() => import('./Tree/Accounts'));
+const License = lazy(() => import('./License'));
 
 const Profile: React.FC = () => {
   return (
@@ -18,23 +19,30 @@ const Profile: React.FC = () => {
           <ChangePasswordModal />
         </Suspense>
       </Header>
-      <Content className="md:flex">
+      <Content className="w-full md:flex">
         <Card
-          className="max-w-xs md:mr-4"
+          className="max-w-sm md:mr-4"
           title="Información del perfil"
         >
           <Suspense fallback={<Spin tip="Cargando datos..." />}>
             <ProfileDescriptions />
           </Suspense>
         </Card>
-        <Card
-          className="flex-grow mt-4 md:mt-0"
-          title="Árbol de Cuentas"
+        <Layout
+          className='max-w-xl items-center justify-center'
         >
           <Suspense fallback={<Spin tip="Cargando datos..." />}>
-            <TreeAccounts />
+            <License />
           </Suspense>
-        </Card>
+          <Card
+            className="flex-grow max-w-xl w-full mt-4 md:mt-0"
+            title="Árbol de Cuentas"
+          >
+            <Suspense fallback={<Spin tip="Cargando datos..." />}>
+              <TreeAccounts />
+            </Suspense>
+          </Card>
+        </Layout>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         WanWayTech © {new Date().getFullYear()}
