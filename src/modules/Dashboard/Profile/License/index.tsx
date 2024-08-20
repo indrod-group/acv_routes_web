@@ -44,9 +44,6 @@ const LicenseCard: React.FC = () => {
   const currentLicense = licenses.slice(startIndex, endIndex).map((license) => ({
     ...license, key: license.id
   }));
-  const getPhotos = (index: number) => {
-    return [licenses[index].front_image, licenses[index].back_image];
-  }
   return (
     <List
       className="w-full"
@@ -81,14 +78,14 @@ const LicenseCard: React.FC = () => {
               swipeToSlide
               lazyLoad='progressive'
             >
-                <Image.PreviewGroup key={`${index}-${item.back_image}`} items={getPhotos(index)}>
+                <Image.PreviewGroup key={`${index}-${item.front_image}`} items={[item.front_image, item.back_image]}>
                   <Image
                     src={item.front_image}
                     height={250}
                     alt={item.front_image}
                   />
                 </Image.PreviewGroup>
-                <Image.PreviewGroup key={`${index}-${item.back_image}`} items={getPhotos(index)}>
+                <Image.PreviewGroup key={`${index}-${item.back_image}`} items={[item.front_image, item.back_image]}>
                   <Image
                     src={item.back_image}
                     height={250}
