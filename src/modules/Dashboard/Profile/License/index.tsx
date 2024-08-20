@@ -81,16 +81,21 @@ const LicenseCard: React.FC = () => {
               swipeToSlide
               lazyLoad='progressive'
             >
-              {getPhotos(index).map((photo, i) => (
-                <Image.PreviewGroup key={`${i}-${photo}`} items={getPhotos(index)}>
+                <Image.PreviewGroup key={`${index}-${item.back_image}`} items={getPhotos(index)}>
                   <Image
-                    src={photo}
+                    src={item.front_image}
                     height={250}
-                    alt={`${i}-${photo}`}
+                    alt={item.front_image}
                   />
                 </Image.PreviewGroup>
-              ))}
-            </Carousel>
+                <Image.PreviewGroup key={`${index}-${item.back_image}`} items={getPhotos(index)}>
+                  <Image
+                    src={item.back_image}
+                    height={250}
+                    alt={item.back_image}
+                  />
+                </Image.PreviewGroup>
+              </Carousel>
             <Divider />
             <p>Válida desde {item.issue_date} hasta {item.expiry_date}.</p>
           </Card>
