@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { List, Pagination, ColorPicker, DescriptionsProps, Descriptions, Modal, Button, Carousel, Image, Skeleton } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { List, Pagination, ColorPicker, DescriptionsProps, Descriptions, Modal, Button, Carousel, Image, Skeleton, message } from 'antd';
 import { CarOutlined } from '@ant-design/icons';
-import { useVehicles } from '../../../api/hooks';
+import { useApi, useVehicles } from '../../../api/hooks';
 import { Vehicle } from '../../../api/models';
 import { useVehicleContext } from './useVehicleContext';
-
+import useBrokerInfo from '../../../api/hooks/useBrokerInfo';
 interface VehicleCardProps {
   item: Vehicle;
 }
@@ -20,6 +20,9 @@ interface VehicleDescriptionProps {
 interface VehiclePhotosProps {
   item: Vehicle;
 }
+interface BrokerInfoPhotosProps {
+  vehicle: Vehicle | null;
+}
 
 const VehicleTitle: React.FC<VehicleTitleProps> = ({ item }) => {
   return (
@@ -32,7 +35,6 @@ const VehicleTitle: React.FC<VehicleTitleProps> = ({ item }) => {
 }
 
 const VehicleDescription: React.FC<VehicleDescriptionProps> = ({ item }) => {
-
   const descriptionItems: DescriptionsProps['items'] = [];
 
   if (item.chassis) {
@@ -141,22 +143,66 @@ const VehiclePhotos: React.FC<VehiclePhotosProps> = ({ item }) => {
     </>
   );
 };
+interface BrokerInfoData {
+  insurance_company: string;
+  issue_date: string;
+  expiry_date: string;
+}
+const BrokerInfo: React.FC<BrokerInfoPhotosProps> = ({ vehicle }) => {
+  const [brokerInfo, setBrokerInfo] = useState<BrokerInfoData | null>(null);
+  const api = useApi();
 
+  useEffect(() => {
+    if (vehicle?.vuid) {
+      api.get(`/vehicles/${vehicle.vuid}/brokerinfo`)
+        .then(response => {
+          const data = response.data[0];
+          if (data) {
+            setBrokerInfo({
+              insurance_company: data.insurance_company,
+              issue_date: data.issue_date,
+              expiry_date: data.expiry_date,
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching broker information: ', error);
+          message.error('Ha habido un problema obteniendo la información del broker.');
+        });
+    }
+  }, [vehicle, api]);
+
+  return (
+    <Descriptions bordered size="small" column={1}>
+      <Descriptions.Item label="Nombre de la Compañía de Seguros">
+        {brokerInfo?.insurance_company || "No se encontró información de broker"}
+      </Descriptions.Item>
+      <Descriptions.Item label="Fecha de Emisión">
+        {brokerInfo?.issue_date || "No disponible"}
+      </Descriptions.Item>
+      <Descriptions.Item label="Fecha de Expiración">
+        {brokerInfo?.expiry_date || "No disponible"}
+      </Descriptions.Item>
+    </Descriptions>
+  );
+};
 
 const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
   const [visible, setVisible] = useState(false);
   const { selectedVehicle, setSelectedVehicle } = useVehicleContext();
-
+  const [showBroker, setShowBroker] = useState(false);
   const showModal = () => {
     setVisible(true);
   };
 
   const handleOk = () => {
     setVisible(false);
+    setShowBroker(false);
   };
 
   const handleCancel = () => {
     setVisible(false);
+    setShowBroker(false);
   };
 
   const handleItemClick = (vehicle: Vehicle) => {
@@ -165,14 +211,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
 
   return (
     <List.Item
-      className={`cursor-pointer ${selectedVehicle?.vuid == item.vuid ? 'bg-blue-200' : ''}`} onClick={() => handleItemClick(item)}>
+      className={`cursor-pointer ${selectedVehicle?.vuid === item.vuid ? 'bg-blue-200' : ''}`}
+      onClick={() => handleItemClick(item)}
+    >
       <List.Item.Meta
         avatar={<CarOutlined />}
         className='w-full'
         title={<VehicleTitle item={item} />}
         description={<VehicleDescription item={item} />}
-      >
-      </List.Item.Meta>
+      />
       <Button type="link" onClick={showModal}>
         Mostrar
       </Button>
@@ -185,6 +232,18 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ item }) => {
       >
         <VehiclePhotos item={item} />
         <VehicleDescription item={item} />
+      </Modal>
+      <Button type="link" onClick={() => { setShowBroker(true) }}>
+        Información de broker
+      </Button>
+      <Modal
+        className='w-full'
+        title="Información de broker"
+        open={showBroker}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <BrokerInfo vehicle={selectedVehicle} />
       </Modal>
     </List.Item>
   );

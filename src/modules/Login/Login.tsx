@@ -30,12 +30,12 @@ const LoginForm: React.FC<LoginProps> = ({ setToken }) => {
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1000 });
   const title = isDesktopOrLaptop ? 'Bitácora de conducción y sistema de administración de vehículos' : 'Road Safety System';
   const navigate = useNavigate();
-
+  
   const onFinish = (values: Credentials) => {
     loginUser(values).then(token => {
       setToken(token);
       Cookies.set('username', values.username);
-      navigate('/dashboard/journey-tracker');
+      navigate('/dashboard/service-hours-log');
     }).catch((error: AxiosError) => {
       if (!navigator.onLine) {
         void message.error('No hay conexión a internet.');

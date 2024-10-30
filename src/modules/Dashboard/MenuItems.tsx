@@ -22,11 +22,11 @@ function getItem(
 }
 
 const menuItems: MenuItem[] = [
-    getItem('Rutas de viaje', '1', <PieChartOutlined />,),
-    getItem('Rutas', '2', <HeatMapOutlined />,),
-    getItem('Perfil', '3', <UserOutlined />,),
+    // getItem('Rutas de viaje', '1', <PieChartOutlined />,),
+    // getItem('Rutas', '2', <HeatMapOutlined />,),
     getItem('Bitácora', '5', <DesktopOutlined />,),
     getItem('Vehículos', '6', <CarOutlined />,),
+    getItem('Perfil', '3', <UserOutlined />,),
     getItem('Cerrar sesión', '7', <LogoutOutlined />,),
 ];
 
