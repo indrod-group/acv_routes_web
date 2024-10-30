@@ -4,7 +4,7 @@ import { CarOutlined } from '@ant-design/icons';
 import { useApi, useVehicles } from '../../../api/hooks';
 import { Vehicle } from '../../../api/models';
 import { useVehicleContext } from './useVehicleContext';
-import useBrokerInfo from '../../../api/hooks/useBrokerInfo';
+// import useBrokerInfo from '../../../api/hooks/useBrokerInfo';
 interface VehicleCardProps {
   item: Vehicle;
 }
