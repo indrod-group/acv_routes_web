@@ -3,10 +3,10 @@ import React from 'react';
 import type { MenuProps } from 'antd';
 import {
     DesktopOutlined,
-    PieChartOutlined,
+    // PieChartOutlined,
     LogoutOutlined,
     UserOutlined,
-    HeatMapOutlined,
+    // HeatMapOutlined,
     CarOutlined
 } from '@ant-design/icons';
 
