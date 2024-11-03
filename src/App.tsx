@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Dashboard from './modules/Dashboard/Dashboard';
-import Login from './modules/Login/Login';
-import useToken from './api/hooks/useToken';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Login from './pages/Login/Login';
+import useToken from './hooks/useToken';
 
 import 'antd/dist/reset.css';
-import NotFoundPage from './modules/Dashboard/NotFoundPage';
+import NotFoundPage from './pages/Dashboard/NotFoundPage';
 
 function App() {
   const { token, setToken } = useToken();
